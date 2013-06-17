@@ -1,2 +1,3 @@
-allStars
+allStars - express based application
 ========
+
