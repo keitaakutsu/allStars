@@ -43,6 +43,7 @@ var AllStar = require('./src/allStar');
 var count = 0;
 var socket = io.listen(server);
 socket.set('log level', 1);
+console.log('socket on');
 socket.on('connection', function (client) {
 	count++;
 	console.log('connected: now ', count);
