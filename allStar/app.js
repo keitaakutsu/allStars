@@ -39,28 +39,43 @@ server.listen(app.get('port'), function(){
  * */
 
 var AllStar = require('./src/allStar');
-
-var count = 0;
+var state = AllStar.state.init();
+console.log(AllStar.state.stateList);
 var socket = io.listen(server);
+var token = 'kgsihpthjsdfiwojwpea:ofjdsj';
+// set Bug
 //socket.set('log level', 1);
-console.log('socket on');
 socket.on('connection', function (client) {
-	count++;
-	console.log('connected: now ', count);
+	var id = client.id;
+	client.on('getState', function () {
+		client.emit(state);
+	});
+	client.on('next', function (data) {
+		if (data.token !== token) return;
+		state = AllStar.state.next();
+		//var data = AllStar.getData(state, data);
+		var _state = state.split(':');
+		state = (_state[2])? _state[0]+':'+_state[1]: state;
+		socket.sockets.emit(state, _state[2]);
+	});
 
+	// check already registered
 	client.on('register', function (data) {
-		console.log('register');
-
+		if (!data) return;
+		var user = AllStar.register(id, data);
+		client.emit('registered', user);
 	});
 
+
+	client.on('getMasterToken', function (password) {
+		if (!password) return;
+		var t = (password === 'unkodesu')? token: null;
+		client.emit('setMasterToken', t);
+	});
+
+
+	// disconected
 	client.on('disconnect', function () {
-		count--;
-		console.log('disconnected: now ', count);
+
 	});
-
-
 });
-
-
-	  // listen for new web clients:
-	  // server.listen(8080);

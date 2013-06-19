@@ -6,31 +6,6 @@ var users = [];
 var correctUsersList = [];
 
 
-/*
-* 一人ひとりのユーザー
-*/
-exports.user = function(data){
-	// facebookのID
-	this.facebookId = data.facebookId;
-
-	// connection Id
-	this.connectionId = data.connectionId;
-
-	// profileUrl
-	this.profileUrl = data.profileUrl;
-
-	// name 
-	this.name = data.name;
-
-	//answers
-	this.answers = {};
-};
-
-exports.user.prototype = {
-	score:0, //正解数
-};
-
-
 /**
 * 一問一問のクイズ
 */
@@ -197,7 +172,7 @@ exports.getTotalResult = function(){
 			result[userScore.count].push(userData);
 		}
 	}
-	
+
 	var _result = [];
 	//時間ごとにソート
 	for(key in result){
@@ -243,7 +218,7 @@ exports.getTime = function(){
 	var str = (Math.floor(((new Date()) - timerStart)/10)/100).toString().split('.');
 
 	if(str[1]){
-		str[1] = (str.length === 1) ? str[1]+'0' : str[1] ; 
+		str[1] = (str.length === 1) ? str[1]+'0' : str[1] ;
 
 	}else{
 		str[1] = '00';

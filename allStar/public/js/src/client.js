@@ -1,42 +1,17 @@
-var socket = io.connect('http://charlieee.com:3000');
-console.log(socket);
-socket.emit('register');
+var host = location.origin;
+var socket = io.connect(host);
 
+socket.emit('register', {
+	name: 'aaa'
+});
+
+socket.on('registered', function (user) {
+	console.log(user);
+});
 
 (function(w){
 
 	var d = w.document;
-
-	d.addEventListener('DOMContentLoaded', function() {
-
-		var e = d.createElement('script');
-		e.async = true;
-		e.src = d.location.protocol +
-		'//connect.facebook.net/en_US/all.js';
-		d.getElementById('fb-root').appendChild(e);
-
-	});
-
-	/*for debug*/
-
-	var CNST = {
-	STATE: {
-		ENTRY_START: 0,//entry 開始
-		ENTRY_END: 1,//entry 終了
-		EXHIBITION_START: 2,//quiz 全体開始
-		EXHIBITION_END: 3,//quiz 全体終了
-		QUIZ_STAND: 4,//quiz 待機
-		QUIZ_START: 5,//quiz 開始
-		QUIZ_END: 6,//quiz 終了,
-		ENTRY_COMPLETE: 7,// entry　待機画面
-		ENTRY_REFUSED: 8
-	},
-	USER_TYPE: {
-		USER: 0,
-		MASTER: 1
-	}
-	};
-
 
 	/**
 	* client object for

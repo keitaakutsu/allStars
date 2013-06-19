@@ -2,84 +2,15 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>allstar</title>
-   <link rel="stylesheet" href="css/main.css">
+	<title>All Star 大感謝祭</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="/socket.io/socket.io.js"></script>
+	<script src='js/require.js' data-main="js/master.js"></script>
 </head>
 <body>
-	<div id="wrap-all">
-
-		<!-- トップページ -->
-		<div id="wrap-top">
-			<div id = "logo"></div>
-		</div>
-
-		<!-- 待機ページ -->
-		<div id="wrap-wait"></div>
-
-		<!-- 問番号と問題文ページ -->
-		<div id="wrap-start">
-			<div class="number"></div>
-			<div class="content"></div>
-		</div>
-
-		<!-- 問題選択肢ページ	 -->
-		<div id="wrap-select">
-			<div id="wrap-question">
-				<div id="q-area">
-					<div id="q-str">Q</div>
-					<div id="q-content"></div>
-				</div>
-				<div id="q-list">
-					<div>
-						<div class="gradient" id="q-list1">
-							<div class="num" id="num1">1</div>
-							<div class="q-content" id="q-content1"></div>
-							<div class="q-vote"></div>
-						</div>
-						<div class="gradient" id="q-list2">
-							<div class="num" id="num2">2</div>
-							<div class="q-content" id="q-content2"></div>
-							<div class="q-vote"></div>
-						</div>
-					</div>
-					<div>
-						<div class="gradient" id="q-list3">
-							<div class="num" id="num3">3</div>
-							<div class="q-content" id="q-content3"></div>
-							<div class="q-vote"></div>
-						</div>
-						<div class="gradient" id="q-list4">
-							<div class="num" id="num4">4</div>
-							<div class="q-content" id="q-content4"></div>
-							<div class="q-vote"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="timer-area">
-				<img src="" alt="">
-				<div id="time-count"></div>
-			</div>
-		</div>
-
-		<!-- 正解速度ランキングページ -->
-		<div id="wrap-ranking">
-			<ul id="ranking-ul"></ul>
-		</div>
-
-
-		<div id="wrap-final-title">
-			<div>最終順位発表！</div>
-		</div>
-
-		<div id="wrap-final-ranking">
-			<ul id="final-ranking-ul"></ul>
-		</div>
-
+	<div id='main'>
 
 
 	</div>
-	<script src="http://charlieee.com:3000/socket.io/socket.io.js"></script>
-	<script src="js/src/main.js"></script>
 </body>
 </html>
