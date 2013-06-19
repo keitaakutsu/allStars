@@ -1,7 +1,7 @@
 (function(w){
 
 
-	var socket = io.connect('http://charlieee.com:8080');
+	var socket = io.connect('http://localhost:3000');
 
 	var CNST = {
 		STATE:{
@@ -154,7 +154,7 @@
 		// 6:{
 		// 	quizId: 6,
 		// 	content: "このCSSはどれ?<br><br>"+
-		// 			 "border-radius: 25%;<br>"+					
+		// 			 "border-radius: 25%;<br>"+
 		// 			 "border: groove white 2px;"
 		// 	,
 		// 	answerList: {
@@ -327,8 +327,8 @@
 				case 8:
 					if(flags.finalRanking){
 						flags.finalRanking = false;
-						elRanking.style.display = 'none';	
-						elFinalRanking.style.display = 'block';	
+						elRanking.style.display = 'none';
+						elFinalRanking.style.display = 'block';
 					}
 					break;
 
@@ -336,8 +336,8 @@
 					if(flags.finalRankingResult){
 						flags.finalRankingResult = false;
 
-						elFinalRanking.style.display = 'none';	
-						elFinalRankingResult.style.display = 'block';	
+						elFinalRanking.style.display = 'none';
+						elFinalRankingResult.style.display = 'block';
 
 						qRanking(finalResult);
 						audioList.champion.load();
@@ -354,7 +354,7 @@
 
 	/**
 	*ログインユーザの追加、描画
-	* @param {String} name ユーザname	
+	* @param {String} name ユーザname
 	* @param {String} profileUrl ユーザ画像
 	*/
 	function addUser(user){
@@ -375,7 +375,7 @@
 
 	/**
 	* 問題文ページ
-	* 
+	*
 	*/
 	function qStart(quiz){
 		var data = {
@@ -419,7 +419,7 @@
 				if (++cnt < length) setTimeout(arguments.callee,100);
 			},100);
 		}, false);
-		
+
 		//elStart.children[1].innerHTML = quiz[quizNum].content;
 	}
 
@@ -443,7 +443,7 @@
 		for(var i = 0; i < 2; i++){
 			for(var j = 0; j < 2; j++){
 				elUl.children[i].children[j].className = "gradient";
-				elUl.children[i].children[j].children[2].innerHTML = "";	
+				elUl.children[i].children[j].children[2].innerHTML = "";
 			}
 		}
 
@@ -452,9 +452,9 @@
 
 
 		for(var i = 0; i < 2; i++){
-			if(quiz[quizNum].isImage) 
+			if(quiz[quizNum].isImage)
 				elUl.children[i].className = 'flexbox';
-			else 
+			else
 				elUl.children[i].className = '';
 			for(var j = 0; j < 2; j++){
 				elUl.children[i].children[j].children[0].innerHTML = j+i*2 + 1;
@@ -497,7 +497,7 @@
 
 		for(var i = 0; i < 2; i++){
 			for(var j = 0; j < 2; j++){
-				elUl.children[i].children[j].children[2].innerHTML = quiz.counter[i * 2 + j];	
+				elUl.children[i].children[j].children[2].innerHTML = quiz.counter[i * 2 + j];
 			}
 		}
 	}
@@ -578,7 +578,7 @@
 						'</li>';
 
 			}
-			//通常ランキング	
+			//通常ランキング
 			else{
 
 	 			html +=	'<li class="ranking-list">'+
