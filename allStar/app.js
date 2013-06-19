@@ -53,7 +53,7 @@ socket.on('connection', function (client) {
 
 	});
 
-	client.on('disconnected', function () {
+	client.on('disconnect', function () {
 		count--;
 		console.log('disconnected: now ', count);
 	});
