@@ -49,8 +49,7 @@ socket.on('connection', function (client) {
 	console.log('connected: now ', count);
 
 	client.on('register', function (data) {
-
-
+		console.log('register');
 
 	});
 
