@@ -53,6 +53,10 @@ define(['lodash', 'chikuwa'], function (_, $) {
 		console.log('ending', data);
 	});
 
-
-
+	// answer
+	// data = {
+	//	 id: id,
+	//	 answer: answer
+	// }
+	socket.emit('q:answer', data);
 });

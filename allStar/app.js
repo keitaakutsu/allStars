@@ -51,12 +51,12 @@ socket.on('connection', function (client) {
 		client.emit(state);
 	});
 	client.on('next', function (data) {
-		if (data.token !== token) return;
+		//if (data.token !== token) return;
 		state = AllStar.state.next();
-		//var data = AllStar.getData(state, data);
+		var data = AllStar.getData(state, data);
 		var _state = state.split(':');
 		state = (_state[2])? _state[0]+':'+_state[1]: state;
-		socket.sockets.emit(state, _state[2]);
+		socket.sockets.emit(state, data);
 	});
 
 	// check already registered
@@ -68,7 +68,7 @@ socket.on('connection', function (client) {
 
 
 	client.on('getMasterToken', function (password) {
-		if (!password) return;
+		//if (!password) return;
 		var t = (password === 'unkodesu')? token: null;
 		client.emit('setMasterToken', t);
 	});

@@ -22,10 +22,90 @@ exports.register = function (connectionId, data) {
 	return user;
 };
 
-exports.getQuestion = function (id) {
-	var q = _.find(question, {id: id});
-	return q;
+exports.getData = function (state) {
+	var date;
+	var states = state.split(':');
+	switch (states[0]) {
+		case 'entry':
+			data = userList.length;
+			break;
+		case 'q':
+			data = getQData(state);
+			break;
+		case 'all':
+			data = getAllData(state);
+			break;
+	}
+	//var q = _.find(question, {id: id});
+	return data;
 };
+
+function getQData(state) {
+	var data;
+	var states = state.split(':');
+	var id = parseInt(states[2], 10);
+	var q = _.find(question, {id: id});
+	switch (states[1]) {
+		case 'show':
+			data = {
+				id: id,
+				question: q.question
+			};
+			break;
+		case 'start':
+			data = {
+				id: id,
+				question: q.question,
+				type: q.type,
+				answerList: q.answerList
+			};
+			break;
+		case 'timeup':
+			break;
+		case 'check':
+			data = {
+				id: id,
+				1: 11,
+				2: 12,
+				3: 13,
+				4: 14
+			};
+			break;
+		case 'answer':
+			data = {
+				id: id,
+				answer: q.answer
+			}
+			break;
+		case 'ranking':
+			data = {
+				id: id,
+				ranking:[
+					{name:'aaa1', time: '1.354'},
+					{name:'aaa2', time: '2.354'},
+					{name:'aaa3', time: '3.354'},
+					{name:'aaa4', time: '4.354'},
+					{name:'aaa5', time: '5.354'},
+				]
+			};
+			break;
+	}
+	return data;
+}
+
+function getAllData(state) {_
+	var data;
+	var states = state.split(':');
+	switch (states[1]) {
+		case 'ranking':
+			break;
+		case 'end':
+			break;
+		case 'ending':
+			break;
+	}
+	return 'all';
+}
 
 exports.state = {
 	state: 0,
@@ -66,6 +146,28 @@ exports.state = {
 			self.state++;
 		}
 		return self.stateList[self.state];
+	}
+};
+
+
+exports.timer = {
+	state: null,
+	time: null,
+	start: function () {
+		var self = this;
+		self.set(new Date());
+		self.state = 'start';
+	},
+	stop: function () {
+		self.state = 'stop';
+	},
+	set: function (time) {
+		this.time = time;
+	},
+	get: function () {
+		var self = this;
+		var now = new Date();
+		return (now - self.time);
 	}
 };
 
