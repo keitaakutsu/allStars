@@ -47,7 +47,8 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 
 	socket.on('q:start', function (data) {
 		var content = view.quiz('start', data);
-		content.on('answer', function(num) {
+		content.once('answer', function(num) {
+			console.log(num);
 			socket.emit('q:answer', {id: id, answer: num});
 		});
 	});
