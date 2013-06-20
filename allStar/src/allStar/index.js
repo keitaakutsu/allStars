@@ -193,8 +193,8 @@ exports.answer = function (data) {
 	var user = _.find(userList, {id: data.id});
 	if (!user) return;
 	console.log('user validation');
-	//var already = _.find(user.answerList, {id: questionId});
-	//if (already) return;
+	var already = _.find(user.answerList, {id: questionId});
+	if (already) return;
 
 	answers[data.answer]++;
 	console.log('count Answer');
