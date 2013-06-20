@@ -95,7 +95,8 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 
 	// add new user
 	socket.on('register:member', function (data) {
-		view.registered(data);
+		data = data || {};
+		view.updateMember(data.sum || 0);
 		sounds.login.load();
 		sounds.login.play();
 	});
