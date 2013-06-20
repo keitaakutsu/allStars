@@ -3,6 +3,7 @@ require.config({
 	paths: {
 		lodash: 'js/lib/lodash',
 		chikuwa: 'js/lib/chikuwa',
+		tofu: 'js/lib/tofu',
 		view: 'js/client/view'
 	},
 	urlArgs: 'bust=' + (new Date()).getTime()
@@ -40,7 +41,8 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 
 	socket.on('q:start', function (data) {
 		var content = view.quiz('start', data);
-		content.on('answer', function(e, num) {
+		content.on('answer', function(num) {
+			console.log(num);
 			socket.emit('q:answer', {id: id, answer: 1});
 		});
 		console.log('q:start');

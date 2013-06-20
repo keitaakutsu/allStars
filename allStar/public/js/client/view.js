@@ -1,7 +1,10 @@
-define(['chikuwa'], function ($) {
+define(['chikuwa', 'tofu'], function ($, tofu) {
 	var tag = $.tag;
 	var w = window;
 	var container = $('#main');
+	var emitter = tofu.init(tofu.EventEmitter);
+
+
 
 	var top = function() {
 		var entry = tag('div#entry')
@@ -40,21 +43,21 @@ define(['chikuwa'], function ($) {
 								.tag('p').cls('quiz').text(text).gat()
 								.tag('div#btns')
 									.tag('div#btn-top')
-										.tag('div.btn').cls('btn-1').text(1).data(1)
+										.tag('div.btn').cls('btn-1').text(1).data({id: 1})
 											.tap(select)
 											.on('resize', resize)
 										.gat()
-										.tag('div.btn').cls('btn-2').text(2).data(2)
+										.tag('div.btn').cls('btn-2').text(2).data({id: 2})
 											.tap(select)
 											.on('resize', resize)
 										.gat()
 									.gat()
 									.tag('div#btn-top')
-										.tag('div.btn').cls('btn-3').text(3).data(3)
+										.tag('div.btn').cls('btn-3').text(3).data({id: 3})
 											.tap(select)
 											.on('resize', resize)
 										.gat()
-										.tag('div.btn').cls('btn-4').text(4).data(4)
+										.tag('div.btn').cls('btn-4').text(4).data({id: 4})
 											.tap(select)
 											.on('resize', resize)
 										.gat()
@@ -70,7 +73,7 @@ define(['chikuwa'], function ($) {
 
 					target.cls('selected');
 					selected = true;
-					content.trigger('answer', answer);
+					emitter.emit('answer', answer);
 				}
 
 				var btnHeight = Math.abs(w.orientation) === 90 ? (w.innerHeight - 50) / 2 : (w.innerHeight - 50) / 4;
@@ -96,7 +99,7 @@ define(['chikuwa'], function ($) {
 			;
 		}
 		container.append(content);
-		return content;
+		return emitter;
 	};
 
 	var all = function () {
