@@ -47,7 +47,7 @@ var token = 'kgsihpthjsdfiwojwpea:ofjdsj';
 socket.on('connection', function (client) {
 	var id = client.id;
 	client.on('getState', function () {
-		state = AllStar.state.next();
+		state = AllStar.state.get();
 		var data = AllStar.getData(state);
 		client.emit(state, data);
 	});

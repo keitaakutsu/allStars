@@ -2,19 +2,34 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 	var tag = $.tag;
 	var w = window;
 	var container = $('#main');
+	var message = tag('#message')
+					.tag('.in').gat();
 	var emitter = tofu.init(tofu.EventEmitter);
 
 
 
 	var top = function() {
 		resetView();
+		var textbox = tag('input', {type: 'text', id: 'entry-bame'});
 		var entry = tag('div#entry')
 						.tag('p').text('名前を入力してください。').gat()
-						.tag('input', {type: 'text'}).gat();
+						.tag('p')
+							.append(textbox)
+							.tag('button', {value: 'エントリー',id: 'btn-entry'})
+							.tap(function() {
+								var name = textbox.value();
+								emitter.emit('submit', name);
+								textbox.value('');
+							})
+						.gat();
 		container.append(entry);
+		return emitter;
 	}
 
 	var resistered = function(data) {
+		resetView();
+		var content = message.text('エントリーが完了しました。');
+		container.append(content);
 	};
 
 	var entry = function(state, data) {
@@ -106,7 +121,7 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 		return emitter;
 	};
 
-	var all = function () {
+	var all = function (state, data) {
 		if (state === ranking) {
 
 		} else {
