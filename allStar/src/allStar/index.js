@@ -4,12 +4,6 @@ var question = require('./question').data;
 // manage users
 var userList = [];
 var correctAnswerList = [];
-var answers = {
-	1: 0,
-	2: 0,
-	3: 0,
-	4: 0
-}
 
 exports.register = function (connectionId, data) {
 	// get user from list
@@ -48,19 +42,21 @@ exports.getData = function (state) {
 	return data;
 };
 
+
+var answers = {
+	1: 0,
+	2: 0,
+	3: 0,
+	4: 0
+}
 function getQData(state) {
 	var data;
 	var states = state.split(':');
 	var id = parseInt(states[2], 10);
 	var q = _.find(question, {id: id});
+
 	switch (states[1]) {
 		case 'show':
-			answers = {
-				1: 0,
-				2: 0,
-				3: 0,
-				4: 0
-			}
 			data = {
 				id: id,
 				question: q.question
@@ -68,6 +64,12 @@ function getQData(state) {
 			break;
 		case 'start':
 			correctAnswerList = [];
+			answers = {
+				1: 0,
+				2: 0,
+				3: 0,
+				4: 0
+			};
 			data = {
 				id: id,
 				question: q.question,
