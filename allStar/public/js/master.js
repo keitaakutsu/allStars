@@ -33,52 +33,65 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 	};
 
 	socket.on('entry:start', function (data) {
+		console.log('entry:start',data);
 		sounds.entryBGM.loop = true;
 		sounds.entryBGM.play();
 		view.entry('start');
 	});
 
 	socket.on('entry:exit', function (data) {
+		console.log('entry:exit', data);
 		sounds.entryBGM.pause();
 		sounds.period.play();
 		view.entry('exit', data);
 	});
 
 	socket.on('q:show', function (data) {
+		console.log('q:show', data);
 		sounds.start.load();
 		sounds.start.play();
-		view.QuizShow(data);
+		view.QuizShow('show', data);
 	});
 	socket.on('q:start', function (data) {
+		console.log('q:start',data);
 		sounds.thinking.load();
 		sounds.thinking.play();
-		view.Quiz('start', data);
+		console.log(socket);
+		view.Quiz('start', data, function () {
+			socket.emit('next', {token: token});
+		});
 	});
 	socket.on('q:timeup', function (data) {
+		console.log('q:timeup',data);
 		sounds.thinking.pause();
 		view.Quiz('timeup');
 	});
 	socket.on('q:check', function (data) {
+		console.log('q:check',data);
 		sounds.check.load();
 		sounds.check.play();
 		view.Quiz('check', data);
 	});
 	socket.on('q:answer', function (data) {
+		console.log('q:answer',data);
 		sounds.answer.load();
 		sounds.answer.play();
 		view.Quiz('answer', data);
 	});
 	socket.on('q:ranking', function (data) {
+		console.log('q:ranking',data);
 		sounds.result.load();
 		sounds.result.play();
 		view.Ranking(data);
 	});
 	socket.on('all:ranking', function (data) {
+		console.log('all:ranking',data);
 		sounds.result.load();
 		sounds.result.play();
 		view.Ranking(data);
 	});
 	socket.on('all:ending', function (data) {
+		console.log('all:ending',data);
 	});
 
 	// add new user

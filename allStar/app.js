@@ -40,7 +40,6 @@ server.listen(app.get('port'), function(){
 
 var AllStar = require('./src/allStar');
 var state = AllStar.state.init();
-console.log(AllStar.state.stateList);
 var socket = io.listen(server);
 var token = 'kgsihpthjsdfiwojwpea:ofjdsj';
 // set Bug
@@ -48,13 +47,19 @@ var token = 'kgsihpthjsdfiwojwpea:ofjdsj';
 socket.on('connection', function (client) {
 	var id = client.id;
 	client.on('getState', function () {
-		client.emit(state);
+		state = AllStar.state.next();
+		var data = AllStar.getData(state);
+		client.emit(state, data);
 	});
 	client.on('next', function (data) {
 		//if (data.token !== token) return;
 		state = AllStar.state.next();
-		var data = AllStar.getData(state, data);
+		var data = AllStar.getData(state);
 		var _state = state.split(':');
+		if (_state[1] === 'start') {
+			AllStar.timer.start();
+		}
+
 		state = (_state[2])? _state[0]+':'+_state[1]: state;
 		socket.sockets.emit(state, data);
 	});
@@ -71,6 +76,13 @@ socket.on('connection', function (client) {
 		//if (!password) return;
 		var t = (password === 'unkodesu')? token: null;
 		client.emit('setMasterToken', t);
+	});
+
+	// answer
+	client.on('q:answer', function (data) {
+		var time = AllStar.timer.get();
+		var id = data.id;
+		var ans = data.answer;
 	});
 
 
