@@ -181,6 +181,7 @@ function getAllData(state) {_
 }
 
 exports.answer = function (data) {
+	console.log(data);
 	console.log('answer');
 	var self = this;
 	var state = self.state.get();
@@ -193,8 +194,8 @@ exports.answer = function (data) {
 	var user = _.find(userList, {id: data.id});
 	if (!user) return;
 	console.log('user validation');
-	//var already = _.find(user.answerList, {id: questionId});
-	//if (already) return;
+	var already = _.find(user.answerList, {id: questionId});
+	if (already) return;
 
 	answers[data.answer]++;
 	console.log('count Answer');
