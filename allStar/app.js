@@ -80,7 +80,6 @@ socket.on('connection', function (client) {
 
 	// answer
 	client.on('q:answer', function (data) {
-		console.log('*****************************************************' + data);
 		if (AllStar.timer.state === 'stop') return;
 		var time = AllStar.timer.get();
 		var id = data.id;

@@ -180,6 +180,7 @@ function getAllData(state) {_
 }
 
 exports.answer = function (data) {
+	console.log('answer');
 	var self = this;
 	var state = self.state.get();
 	var states = state.split(':');
@@ -194,6 +195,7 @@ exports.answer = function (data) {
 	//if (already) return;
 
 	answers[data.answer]++;
+	console.log('count Answer');
 	var flg = false;
 	if (data.answer == ans) {
 		flg = true;
@@ -202,6 +204,7 @@ exports.answer = function (data) {
 			id: user.id,
 			time: data.time
 		});
+		console.log('push correct List');
 	}
 	user.answerList.push({
 		id:	questionId,
