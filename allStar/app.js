@@ -80,9 +80,15 @@ socket.on('connection', function (client) {
 
 	// answer
 	client.on('q:answer', function (data) {
+		if (AllStar.timer.state === 'stop') return;
 		var time = AllStar.timer.get();
 		var id = data.id;
 		var ans = data.answer;
+		AllStar.answer({
+			id: id,
+			answer: ans,
+			time: time
+		});
 	});
 
 

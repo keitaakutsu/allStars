@@ -3,6 +3,7 @@ var question = require('./question').data;
 
 // manage users
 var userList = [];
+var correctAnswerList = [];
 
 exports.register = function (connectionId, data) {
 	// get user from list
@@ -47,6 +48,7 @@ function getQData(state) {
 	var q = _.find(question, {id: id});
 	switch (states[1]) {
 		case 'show':
+			correctAnswerList = [];
 			data = {
 				id: id,
 				question: q.question
@@ -80,13 +82,7 @@ function getQData(state) {
 		case 'ranking':
 			data = {
 				id: id,
-				ranking:[
-					{rank:1, name:'aaa1', time: '1.354'},
-					{rank:2, name:'aaa2', time: '2.354'},
-					{rank:3, name:'aaa3', time: '3.354'},
-					{rank:4, name:'aaa4', time: '4.354'},
-					{rank:5, name:'aaa5', time: '5.354'},
-				]
+				ranking: correctAnswerList
 			};
 			break;
 	}
@@ -106,6 +102,34 @@ function getAllData(state) {_
 	}
 	return 'all';
 }
+
+exports.answer = function (data) {
+	var self = this;
+	var state = self.state.get();
+	var states = state.split(':');
+	var questionId = states[2];
+
+	var q = _.find(question, {id: parseInt(questionId)});
+	var ans = q.answer;
+
+	var user = _.find(userList, {id: data.id});
+	if (!user) return;
+
+	var flg = false;
+	if (data.answer == ans) {
+		flg = true;
+		correctAnswerList.push({
+			name: user.name,
+			id: user.id,
+			time: data.time
+		});
+	}
+	user.answerList.push({
+		id:	questionId,
+		flg: flg,
+		time: data.time
+	});
+};
 
 exports.state = {
 	state: 0,
@@ -179,16 +203,11 @@ var User = function (opts) {
 	this.id = _.uniqueId('ASC_');
 	this.connectionId = opts.connectionId;
 	this.name = opts.name || 'no name';
-	this.changeState('connected');
 };
 
 
 User.prototype =  {
-	changeState: function (state) {
-		this.state = state;
-	},
-
-
+	answerList: []
 };
 
 
