@@ -7,6 +7,7 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 
 
 	var top = function() {
+		resetView();
 		var entry = tag('div#entry')
 						.tag('p').text('名前を入力してください。').gat()
 						.tag('input', {type: 'text'}).gat();
@@ -27,6 +28,7 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 
 	var quiz = function (state, data) {
 		data = data || {};
+		resetView()
 		var message = tag('div#message')
 						.tag('div').cls('in').gat();
 
@@ -86,14 +88,16 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 
 			break;
 			case 'timeup':
-
+				var content = message.text('タイムアップ！');
 			break;
 			case 'check':
-
+				var content = message.text('アンサーチェック！');
 			break;
 			case 'answer':
+				var content = message.text('答えは');
 			break;
 			case 'ranking':
+				var content = message.text('ランキング表示');
 			break;
 			default:
 			;
@@ -111,7 +115,7 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 	};
 
 
-	var resetView = container.empty();
+	var resetView = function() { return container.empty();}
 
 	var view = {
 		top: top,
