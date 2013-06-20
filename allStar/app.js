@@ -43,7 +43,7 @@ var state = AllStar.state.init();
 var socket = io.listen(server);
 var token = 'kgsihpthjsdfiwojwpea:ofjdsj';
 // set Bug
-//socket.set('log level', 1);
+socket.set('log level', 1);
 socket.on('connection', function (client) {
 	var id = client.id;
 	client.on('getState', function () {
@@ -54,6 +54,7 @@ socket.on('connection', function (client) {
 	client.on('next', function (data) {
 		//if (data.token !== token) return;
 		state = AllStar.state.next();
+		console.log(state);
 		var data = AllStar.getData(state);
 		var _state = state.split(':');
 		if (_state[1] === 'start') {

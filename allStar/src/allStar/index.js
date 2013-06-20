@@ -19,8 +19,6 @@ exports.register = function (connectionId, data) {
 		});
 		userList.push(user);
 	}
-	console.log('userConnection******************');
-	console.log(userList);
 	return user;
 };
 
@@ -122,7 +120,7 @@ function rankingSort(list) {
 
 function allRankingSort(cluster) {
 	var result = [];
-	var _cluster = [];
+	var _cluster = {};
 	_.each(cluster, function (v, k) {
 		_cluster[k] = _.sortBy(v, function (user) {
 			return user.time;
@@ -133,9 +131,10 @@ function allRankingSort(cluster) {
 		return k;
 	});
 
-	_.each(__cluster, function (data) {
-		result = result.concat(data);
-	});
+	for (var i = 0, l = __cluster.length; i < l; i++)  {
+		var t =  l - i - 1 ;
+		result = result.concat(__cluster[t]);
+	}
 
 	return result;
 }
@@ -183,8 +182,6 @@ function getAllData(state) {_
 }
 
 exports.answer = function (data) {
-	console.log(data);
-	console.log('answer');
 	var self = this;
 	var state = self.state.get();
 	var states = state.split(':');
@@ -195,12 +192,10 @@ exports.answer = function (data) {
 
 	var user = _.find(userList, {id: data.id});
 	if (!user) return;
-	console.log('user validation');
-	//var already = _.find(user.answerList, {id: questionId});
-	//if (already) return;
+	var already = _.find(user.answerList, {id: questionId});
+	if (already) return;
 
 	answers[data.answer]++;
-	console.log('count Answer');
 	var flg = false;
 	if (data.answer == ans) {
 		flg = true;
@@ -209,13 +204,13 @@ exports.answer = function (data) {
 			id: user.id,
 			time: data.time
 		});
-		console.log('push correct List');
 	}
 	user.answerList.push({
-		id:	questionId,
+		id: questionId,
 		flg: flg,
 		time: data.time
 	});
+
 };
 
 exports.state = {
@@ -286,15 +281,13 @@ exports.timer = {
 /**
  * User
  * */
-var User = function (opts) {
+function User(opts) {
 	this.id = _.uniqueId('ASC_');
 	this.connectionId = opts.connectionId;
 	this.name = opts.name || 'no name';
+	this.answerList = [];
 };
 
 
-User.prototype =  {
-	answerList: []
-};
 
 
