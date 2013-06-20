@@ -6,7 +6,9 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	};
 	var tag = $.tag;
 	var backContainer = tag('#back-container');
-	var container = $('#main');
+	var container = $('#container');
+	var header = $('#header');
+	var main = $('#main');
 
 	var entry = function (state, data) {
 		var entry = tag('#entry').css(center);
@@ -27,13 +29,12 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		resetView();
 		var name = (data.id)? '第' + data.id + '問': '練習問題';
 		var content = tag('.container')
-			.tag('#header')
+			append(header)
 				.tag('h2.text-center').text(name).gat()
 			.gat()
 			.tag('h1.question.text-center').css(center).text(data.question).gat()
 
 		container.append(content);
-		container.append(backContainer);
 	};
 
 	var quiz = function (state, data, call) {
