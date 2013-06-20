@@ -1,4 +1,5 @@
 exports.data = [
+
 	{
 		id: 0,
 		type: 'text',//'text'
@@ -47,6 +48,7 @@ exports.data = [
 		],
 		answer: 3
 	},
+	/*
 	{
 		id: 4,
 		type: 'text',//'text'
@@ -82,6 +84,6 @@ exports.data = [
 			{id: 4, content: 'dog'},
 		],
 		answer: 3
-	},
+	},*/
 
 ];

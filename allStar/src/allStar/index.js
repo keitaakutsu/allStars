@@ -156,7 +156,7 @@ function getAllRanking() {
 		if (!cluster[count]) {
 			cluster[count] = [];
 		}
-		cluster.push({
+		cluster[count].push({
 			id: user.id	,
 			name: user.name,
 			time: timeCount,
