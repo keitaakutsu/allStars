@@ -2,88 +2,158 @@ exports.data = [
 
 	{
 		id: 0,
-		type: 'text',//'text'
-		question: 'what is this?',
+		type: 'text',
+		question: '自社の名前は？',
 		answerList: [
-			{id: 1, content: 'apple'},
-			{id: 2, content: 'banana'},
-			{id: 3, content: 'cat'},
-			{id: 4, content: 'dog'},
+			{id: 1, content: 'Apple'},
+			{id: 2, content: 'CyberAgent'},
+			{id: 3, content: 'Google'},
+			{id: 4, content: 'GREE'},
 		],
-		answer: 3
+		answer: 2
 	},
 	{
 		id: 1,
-		type: 'text',//'text'
-		question: 'what is this?',
+		type: 'image',
+		question: '我らが小林さんはどれでしょう？',
 		answerList: [
-			{id: 1, content: 'apple'},
-			{id: 2, content: 'banana'},
-			{id: 3, content: 'cat'},
-			{id: 4, content: 'dog'},
+			{id: 1, content: 'img/1/q1-1.jpg'},
+			{id: 2, content: 'img/1/q1-2.jpg'},
+			{id: 3, content: 'img/1/q1-3.jpg'},
+			{id: 4, content: 'img/1/q1-4.jpg'},
 		],
 		answer: 3
 	},
 	{
 		id: 2,
-		type: 'text',//'text'
-		question: 'what is this?',
+		type: 'text',
+		question: '渋谷が発祥のチェーン店はどれ？',
 		answerList: [
-			{id: 1, content: 'apple'},
-			{id: 2, content: 'banana'},
-			{id: 3, content: 'cat'},
-			{id: 4, content: 'dog'},
+			{id: 1, content: '富士そば'},
+			{id: 2, content: '五右衛門'},
+			{id: 3, content: 'フレッシュネスバーガー'},
+			{id: 4, content: '全部'},
 		],
-		answer: 3
+		answer: 4
 	},
 	{
 		id: 3,
-		type: 'text',//'text'
-		question: 'this?',
+		type: 'image',
+		question: '7:30はどれ？',
 		answerList: [
-			{id: 1, content: 'apple'},
-			{id: 2, content: 'banana'},
-			{id: 3, content: 'cat'},
-			{id: 4, content: 'dog'},
+			{id: 1, content: 'image/4/1.png'},
+			{id: 2, content: 'image/4/2.png'},
+			{id: 3, content: 'image/4/3.png'},
+			{id: 4, content: 'image/4/4.jpg'},
 		],
-		answer: 3
+		answer: 1
 	},
-	/*
 	{
 		id: 4,
-		type: 'text',//'text'
-		question: '渋谷が発祥のチェーン店はどれ？',
+		type: 'text',
+		question: '渋谷駅の「忠犬ハチ公の銅像」の耳の形はどれ？',
 		answerList: [
-			{id: 1, content: 'apple'},
-			{id: 2, content: 'banana'},
-			{id: 3, content: 'cat'},
-			{id: 4, content: 'dog'},
+			{id: 1, content: '両耳が立っている'},
+			{id: 2, content: '両耳が垂れている'},
+			{id: 3, content: '右耳が立ち、左耳が垂れている'},
+			{id: 4, content: '左耳が立ち、右耳が垂れている'},
 		],
 		answer: 3
 	},
 	{
 		id: 5,
-		type: 'text',//'text'
-		question: '渋谷が発祥のチェーン店はどれ？',
+		type: 'image',
+		question: 'HTML5はどれ？',
 		answerList: [
-			{id: 1, content: 'apple'},
-			{id: 2, content: 'banana'},
-			{id: 3, content: 'cat'},
-			{id: 4, content: 'dog'},
+			{id: 1, content: 'image/2/q2-1.jpg'},
+			{id: 2, content: 'image/2/q2-2.jpg'},
+			{id: 3, content: 'image/2/q2-3.jpg'},
+			{id: 4, content: 'image/2/q2-4.jpg'},
 		],
-		answer: 3
+		answer: 4
 	},
 	{
 		id: 6,
 		type: 'text',//'text'
-		question: '渋谷が発祥のチェーン店はどれ？',
+		question: 'どの動物がPerl？',
 		answerList: [
-			{id: 1, content: 'apple'},
-			{id: 2, content: 'banana'},
-			{id: 3, content: 'cat'},
-			{id: 4, content: 'dog'},
+			{id: 1, content: 'らくだ'},
+			{id: 2, content: 'サイ'},
+			{id: 3, content: 'カンガルー'},
+			{id: 4, content: 'ハリネズミ'},
 		],
-		answer: 3
-	},*/
-
+		answer: 1
+	},
+	{
+		id: 7,
+		type: 'text',
+		question: '今何問目？',
+		answerList: [
+			{id: 1, content: '6'},
+			{id: 2, content: '7'},
+			{id: 3, content: '8'},
+			{id: 4, content: '9'},
+		],
+		answer: 2
+	},
+	{
+		id: 8,
+		type: 'text',
+		question: '技術研修中にfacebookで報告された落とし物の数は？',
+		answerList: [
+			{id: 1, content: '0個'},
+			{id: 2, content: '4個'},
+			{id: 3, content: '5個'},
+			{id: 4, content: '8個'},
+		],
+		answer: 2
+	},
+	{
+		id: 9,
+		type: 'text',//'text'
+		question: 'どの動物がPerl？',
+		answerList: [
+			{id: 1, content: 'らくだ'},
+			{id: 2, content: 'サイ'},
+			{id: 3, content: 'カンガルー'},
+			{id: 4, content: 'ハリネズミ'},
+		],
+		answer: 1
+	},
+	{
+		id: 10,
+		type: 'text',//'text'
+		question: 'どの動物がPerl？',
+		answerList: [
+			{id: 1, content: 'らくだ'},
+			{id: 2, content: 'サイ'},
+			{id: 3, content: 'カンガルー'},
+			{id: 4, content: 'ハリネズミ'},
+		],
+		answer: 1
+	},
+	{
+		id: 11,
+		type: 'text',//'text'
+		question: 'どの動物がPerl？',
+		answerList: [
+			{id: 1, content: 'らくだ'},
+			{id: 2, content: 'サイ'},
+			{id: 3, content: 'カンガルー'},
+			{id: 4, content: 'ハリネズミ'},
+		],
+		answer: 1
+	},
+	{
+		id: 12,
+		type: 'text',
+		question: 'CyberAgentは...',
+		answerList: [
+			{id: 1, content: '21世紀を代表する会社になる！'},
+			{id: 2, content: 'a'},
+			{id: 3, content: 'a'},
+			{id: 4, content: 'ハリネズミ'},
+		],
+		answer: 1
+	},
 ];
