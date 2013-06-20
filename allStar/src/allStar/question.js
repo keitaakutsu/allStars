@@ -41,10 +41,10 @@ exports.data = [
 		type: 'image',
 		question: '7:30はどれ？',
 		answerList: [
-			{id: 1, content: 'image/4/1.png'},
-			{id: 2, content: 'image/4/2.png'},
-			{id: 3, content: 'image/4/3.png'},
-			{id: 4, content: 'image/4/4.jpg'},
+			{id: 1, content: 'img/4/1.png'},
+			{id: 2, content: 'img/4/2.png'},
+			{id: 3, content: 'img/4/3.png'},
+			{id: 4, content: 'img/4/4.jpg'},
 		],
 		answer: 1
 	},
@@ -65,10 +65,10 @@ exports.data = [
 		type: 'image',
 		question: 'HTML5はどれ？',
 		answerList: [
-			{id: 1, content: 'image/2/q2-1.jpg'},
-			{id: 2, content: 'image/2/q2-2.jpg'},
-			{id: 3, content: 'image/2/q2-3.jpg'},
-			{id: 4, content: 'image/2/q2-4.jpg'},
+			{id: 1, content: 'img/2/q2-1.jpg'},
+			{id: 2, content: 'img/2/q2-2.jpg'},
+			{id: 3, content: 'img/2/q2-3.jpg'},
+			{id: 4, content: 'img/2/q2-4.jpg'},
 		],
 		answer: 4
 	},
@@ -98,6 +98,18 @@ exports.data = [
 	},
 	{
 		id: 8,
+		type: 'image',//'text'
+		question: 'ワクワクリエータ−(ゆりえってぃ)はどれ？',
+		answerList: [
+			{id: 1, content: 'img/5/yurie.jpg'},
+			{id: 2, content: 'img/5/yoshinari.jpg'},
+			{id: 3, content: 'img/5/shiho.jpg'},
+			{id: 4, content: 'img/5/yukari.jpg'},
+		],
+		answer: 1
+	},
+	{
+		id: 9,
 		type: 'text',
 		question: '技術研修中にfacebookで報告された落とし物の数は？',
 		answerList: [
@@ -109,40 +121,28 @@ exports.data = [
 		answer: 2
 	},
 	{
-		id: 9,
-		type: 'text',//'text'
-		question: 'どの動物がPerl？',
+		id: 11,
+		type: 'image',
+		question: '昨日のうっちーの日報の一句は？',
 		answerList: [
-			{id: 1, content: 'らくだ'},
-			{id: 2, content: 'サイ'},
-			{id: 3, content: 'カンガルー'},
-			{id: 4, content: 'ハリネズミ'},
+			{id: 1, content: '背後から、聞こえる英語で プチ旅行'},
+			{id: 2, content: '味気ない アジサイを見て 足付く地'},
+			{id: 3, content: '見たあなた 月に還って おしよきよ'},
+			{id: 4, content: 'ハリネズミ 君のハートは ハリネズミ'},
 		],
 		answer: 1
 	},
 	{
 		id: 10,
 		type: 'text',//'text'
-		question: 'どの動物がPerl？',
+		question: 'やまむーの身(cm)長とえのきの体重(kg)を足すと？',
 		answerList: [
-			{id: 1, content: 'らくだ'},
-			{id: 2, content: 'サイ'},
-			{id: 3, content: 'カンガルー'},
-			{id: 4, content: 'ハリネズミ'},
+			{id: 1, content: '??'},
+			{id: 2, content: '??'},
+			{id: 3, content: '??'},
+			{id: 4, content: '??'},
 		],
-		answer: 1
-	},
-	{
-		id: 11,
-		type: 'text',//'text'
-		question: 'どの動物がPerl？',
-		answerList: [
-			{id: 1, content: 'らくだ'},
-			{id: 2, content: 'サイ'},
-			{id: 3, content: 'カンガルー'},
-			{id: 4, content: 'ハリネズミ'},
-		],
-		answer: 1
+		answer: 4
 	},
 	{
 		id: 12,
@@ -150,9 +150,9 @@ exports.data = [
 		question: 'CyberAgentは...',
 		answerList: [
 			{id: 1, content: '21世紀を代表する会社になる！'},
-			{id: 2, content: 'a'},
-			{id: 3, content: 'a'},
-			{id: 4, content: 'ハリネズミ'},
+			{id: 2, content: '海賊王に俺はなる！'},
+			{id: 3, content: '神になる。'},
+			{id: 4, content: 'クリリンのことかぁあああああああ!!!!!!!'},
 		],
 		answer: 1
 	},
