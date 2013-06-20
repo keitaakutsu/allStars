@@ -5,7 +5,6 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		'-webkit-box-pack': 'center',
 	};
 	var tag = $.tag;
-	var backContainer = tag('#back-container');
 	var container = $('#container');
 	var header = $('#header');
 	var main = $('#main');
@@ -29,12 +28,12 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		resetView();
 		var name = (data.id)? '第' + data.id + '問': '練習問題';
 		var content = tag('.container')
-			append(header)
+			.append(header)
 				.tag('h2.text-center').text(name).gat()
 			.gat()
 			.tag('h1.question.text-center').css(center).text(data.question).gat()
 
-		container.append(content);
+		main.append(content);
 	};
 
 	var quiz = function (state, data, call) {
@@ -67,8 +66,8 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 			}
 
-			var timer = tag('#timer.span2').text(15);
-			var time = 15;
+			var timer = tag('#timer.span2').text(3);
+			var time = 3;
 			var timerId = setInterval(function() {
 				if (time <= 0) {
 					clearInterval(timerId);
@@ -79,8 +78,7 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 				timer.text(String(time));
 			}, 1000);
 
-			container.append(content);
-			container.append(backContainer);
+			main.append(content);
 			$('#header').append(timer);
 
 		// time up
@@ -109,12 +107,13 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 			c.tag('.ranking-user.row').text(user.rank +' '+user.name+' '+user.time).gat();
 		});
 
-		container.append(c);
+		main.append(c);
 
 	};
 
 	var resetView = function() {
-		container.empty();
+		header.empty();
+		main.empty();
 	};
 
 

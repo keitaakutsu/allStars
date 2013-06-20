@@ -81,46 +81,6 @@ html, body, #wrapper {
 
 /* line 16, ../sass/main.sass */
 #container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-/* line 21, ../sass/main.sass */
-.question {
-  height: 80%;
-}
-
-/* line 24, ../sass/main.sass */
-.answerList {
-  height: 80%;
-  width: 80%;
-}
-
-/* line 28, ../sass/main.sass */
-.answerBox {
-  background-color: black;
-  height: 200px;
-  margin: 20px;
-}
-
-/* line 33, ../sass/main.sass */
-.answerLine {
-  height: 20%;
-  width: 100%;
-  background-color: black;
-  color: white;
-  margin: 10px;
-}
-
-/* line 40, ../sass/main.sass */
-.answerCount {
-  color: white;
-  background-color: pink;
-}
-
-/* line 44, ../sass/main.sass */
-#back-container {
   position: absolute;
   top: 5%;
   left: 5%;
@@ -132,16 +92,55 @@ html, body, #wrapper {
   -webkit-border-radius: 4px;
 }
 
-/* line 55, ../sass/main.sass */
-.container {
-  position: relative;
-  height: 90%;
-}
-
-/* line 59, ../sass/main.sass */
+/* line 27, ../sass/main.sass */
 #header {
   position: relative;
   height: 200px;
+}
+
+/* line 31, ../sass/main.sass */
+#main {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 35, ../sass/main.sass */
+.question {
+  height: 80%;
+}
+
+/* line 38, ../sass/main.sass */
+.answerList {
+  height: 80%;
+  width: 80%;
+}
+
+/* line 42, ../sass/main.sass */
+.answerBox {
+  background-color: black;
+  height: 200px;
+  margin: 20px;
+}
+
+/* line 47, ../sass/main.sass */
+.answerLine {
+  height: 20%;
+  width: 100%;
+  background-color: black;
+  color: white;
+  margin: 10px;
+}
+
+/* line 54, ../sass/main.sass */
+.answerCount {
+  color: white;
+  background-color: pink;
+}
+
+/* line 58, ../sass/main.sass */
+.container {
+  position: relative;
+  height: 90%;
 }
 
 /* line 63, ../sass/main.sass */
