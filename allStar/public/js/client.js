@@ -17,9 +17,16 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	// check registered
 	if (id) {
 		socket.emit('register', {id: id});
+	} else {
+		var top = view.top();
+		top.on('submit', function(name) {
+			console.log(name);
+			socket.emit('register', {name: 'name'});
+		});
 	}
 
 	socket.on('registered', function (user) {
+		console.log('registered');
 		user = user || {};
 		view.resistered();
 		$.storage('_AS_ID', user.id);
@@ -27,11 +34,6 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 
 	socket.on('entry:start', function (data) {
 		console.log('test');
-		var top = view.top();
-		top.on('submit', function(name) {
-			console.log(name);
-			socket.emit('register', {name: 'name'});
-		});
 	});
 
 	socket.on('entry:exit', function (data) {

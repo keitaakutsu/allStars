@@ -15,7 +15,7 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 						.tag('p').text('名前を入力してください。').gat()
 						.tag('p')
 							.append(textbox)
-							.tag('button', {value: 'エントリー',id: 'btn-entry'})
+							.tag('button', {value:'エントリー', id: 'btn-entry'})
 							.tap(function() {
 								var name = textbox.value();
 								emitter.emit('submit', name);

@@ -26,7 +26,7 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	var quizShow = function (state, data) {
 		resetView();
 		var name = (data.id)? '第' + data.id + '問': '練習問題';
-		var content = tag('#container')
+		var content = tag('.container')
 			.tag('#header')
 				.tag('h2.text-center').text(name).gat()
 			.gat()

@@ -2,36 +2,46 @@
 @import compass
 @include global-reset
 
-html,body,#main
+html,body,#wrapper
 	display: -webkit-box
 	-webkit-box-align: center
 	-webkit-box-pack: center
+	height: 100%
+	width: 100%
+
+#wrapper
+	background: image-url('background.jpg') no-repeat left top
+	background-size: cover
 
 #main
 	position: relative
-	background-image: url('img/background.jpg')
+	background-size: cover
 	z-index: 10
-	.question
-		height: 80%
+	height: 100%
+	width: 100%
 
-	.answerList
-		height: 80%
+.question
+	height: 80%
 
-	.answerBox
-		background-color: black
-		height: 200px
-		margin: 20px
+.answerList
+	height: 80%
+	width: 80%
 
-	.answerLine
-		height: 20%
-		width: 100%
-		background-color: black
-		color: white
-		margin: 10px
+.answerBox
+	background-color: black
+	height: 200px
+	margin: 20px
 
-	.answerCount
-		color: white
-		background-color: pink
+.answerLine
+	height: 20%
+	width: 100%
+	background-color: black
+	color: white
+	margin: 10px
+
+.answerCount
+	color: white
+	background-color: pink
 
 #back-container
 	position: absolute
@@ -44,7 +54,7 @@ html,body,#main
 	z-index: -1
 	-webkit-border-radius: 4px
 
-#container
+.container
 	position: relative
 	height: 90%
 
