@@ -63,7 +63,6 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 	});
 	socket.on('q:timeup', function (data) {
 		console.log('q:timeup',data);
-		sounds.thinking.pause();
 		view.Quiz('timeup');
 	});
 	socket.on('q:check', function (data) {
@@ -82,13 +81,13 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 		console.log('q:ranking',data);
 		sounds.result.load();
 		sounds.result.play();
-		view.Ranking(data);
+		view.Ranking('q', data);
 	});
 	socket.on('all:ranking', function (data) {
 		console.log('all:ranking',data);
 		sounds.result.load();
 		sounds.result.play();
-		view.Ranking(data);
+		view.Ranking('all' ,data);
 	});
 	socket.on('all:ending', function (data) {
 		console.log('all:ending',data);

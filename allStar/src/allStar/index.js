@@ -81,11 +81,11 @@ function getQData(state) {
 			data = {
 				id: id,
 				ranking:[
-					{name:'aaa1', time: '1.354'},
-					{name:'aaa2', time: '2.354'},
-					{name:'aaa3', time: '3.354'},
-					{name:'aaa4', time: '4.354'},
-					{name:'aaa5', time: '5.354'},
+					{rank:1, name:'aaa1', time: '1.354'},
+					{rank:2, name:'aaa2', time: '2.354'},
+					{rank:3, name:'aaa3', time: '3.354'},
+					{rank:4, name:'aaa4', time: '4.354'},
+					{rank:5, name:'aaa5', time: '5.354'},
 				]
 			};
 			break;
