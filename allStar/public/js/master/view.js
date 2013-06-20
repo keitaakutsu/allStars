@@ -88,10 +88,10 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		// answer check
 		} else if (state === 'check') {
 
-			$('#a1').append(tag('.answer-count').text(data[1]));
-			$('#a2').append(tag('.answer-count').text(data[2]));
-			$('#a3').append(tag('.answer-count').text(data[3]));
-			$('#a4').append(tag('.answer-count').text(data[4]));
+			$('#a1').append(tag('.answer-count').text(String(data[1])));
+			$('#a2').append(tag('.answer-count').text(String(data[2])));
+			$('#a3').append(tag('.answer-count').text(String(data[3])));
+			$('#a4').append(tag('.answer-count').text(String(data[4])));
 
 		// show answer
 		} else if (state === 'answer') {

@@ -32,15 +32,16 @@ html,body
 	line-height: 1.7
 
 #wrapper
-	background: image-url('bg3.jpg') no-repeat left top
+	background: image-url('background.jpg') no-repeat left top
 	background-size: cover
 	padding: 10px 0
+	height: 100%
 	#logo
 		background: image-url('logo3.png') no-repeat left top
 		width: image-width('logo2.png')/2
 		height: image-height('logo2.png')/2
 		background-size: 100% 100%
-		margin: 10px auto 
+		margin: 10px auto
 		opacity: 1.0
 		position: relative
 		top: 100px
@@ -71,7 +72,7 @@ html,body
 		-webkit-animation-delay: 0s
 
 		box-shadow: 0 0 10px 0px rgba(0,0,0,.3)
-		//border: solid 4px 
+		//border: solid 4px
 
 		border: solid 2px #FFF
 		text-shadow: -1px -1px 0px rgba(0, 0, 0, .5)
@@ -125,10 +126,10 @@ html,body
 		.btn
 			-webkit-box-flex: 1.0
 			box-sizing: border-box
-			width: 90% 
+			width: 90%
 			@media only screen and (orientation: landscape)
 				width: 96%
-			margin: 0 auto 10px auto 
+			margin: 0 auto 10px auto
 			color: #333
 			background: -webkit-gradient(linear, left top, left bottom, from(rgb(255,255,255)), to(rgb(240,240,240)))
 			text-align: center
@@ -158,7 +159,7 @@ html,body
 		height: 36px
 		line-height: 36px
 		padding: 0 0 0 10px
-		box-sizing: border-box 
+		box-sizing: border-box
 		margin: 10px auto
 		&::before
 			display: inline-block

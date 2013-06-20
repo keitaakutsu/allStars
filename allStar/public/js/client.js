@@ -20,8 +20,7 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	} else {
 		var top = view.top();
 		top.on('submit', function(name) {
-			console.log(name);
-			socket.emit('register', {name: 'name'});
+			socket.emit('register', {name: name});
 		});
 	}
 
@@ -29,6 +28,8 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 		console.log('registered');
 		user = user || {};
 		view.resistered();
+
+		id = user.id;
 		$.storage('_AS_ID', user.id);
 	});
 
