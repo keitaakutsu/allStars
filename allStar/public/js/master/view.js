@@ -18,11 +18,14 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		} else {
 			resetView();
 		}
+		container.append(entry);
 	};
 
 	var updateMember = function (num) {
-		var member = $('#member');
+		var member = tag('#member');
+		var message = '只今の参加人数: ' + num + '人';
 		member.text(num);
+		container.append(member);
 	};
 
 	var quizShow = function (state, data) {
@@ -123,78 +126,79 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 		data = data || {};
 		data.ranking || [];
-		// data.ranking = data.ranking.length === 0 ? [{
-		// 	rank: 1,
-		// 	name: 'test',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 2,
-		// 	name: 'test2',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 3,
-		// 	name: 'test3',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 2,
-		// 	name: 'test2',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 3,
-		// 	name: 'test3',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 2,
-		// 	name: 'test2',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 3,
-		// 	name: 'test3',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 2,
-		// 	name: 'test2',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 3,
-		// 	name: 'test3',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 2,
-		// 	name: 'test2',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 3,
-		// 	name: 'test3',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 2,
-		// 	name: 'test2',
-		// 	time: '11.1'
-		// },
-		// {
-		// 	rank: 3,
-		// 	name: 'test3',
-		// 	time: '11.1'
-		// }
-		// ] : data.ranking;
+		var ranking = data.ranking.length === 0 ? [{
+			rank: 1,
+			name: 'test',
+			time: '11.1'
+		},
+		{
+			rank: 2,
+			name: 'test2',
+			time: '11.1'
+		},
+		{
+			rank: 3,
+			name: 'test3',
+			time: '11.1'
+		},
+		{
+			rank: 2,
+			name: 'test2',
+			time: '11.1'
+		},
+		{
+			rank: 3,
+			name: 'test3',
+			time: '11.1'
+		},
+		{
+			rank: 2,
+			name: 'test2',
+			time: '11.1'
+		},
+		{
+			rank: 3,
+			name: 'test3',
+			time: '11.1'
+		},
+		{
+			rank: 2,
+			name: 'test2',
+			time: '11.1'
+		},
+		{
+			rank: 3,
+			name: 'test3',
+			time: '11.1'
+		},
+		{
+			rank: 2,
+			name: 'test2',
+			time: '11.1'
+		},
+		{
+			rank: 3,
+			name: 'test3',
+			time: '11.1'
+		},
+		{
+			rank: 2,
+			name: 'test2',
+			time: '11.1'
+		},
+		{
+			rank: 3,
+			name: 'test3',
+			time: '11.1'
+		}
+		] : data.ranking;
 
-		var interval = 5000 / data.ranking.length;
+		var interval = 5000 / ranking.length;
 		var cnt = 0;
+
 		setTimeout(function() {
-			if (data.ranking[cnt ++]) {
-				var user = data.ranking[cnt];
+			if (ranking[cnt ++]) {
+				var user = ranking[cnt];
 				content
 					.prepend(
 						tag('.ranking-box')
@@ -207,6 +211,7 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 			}
 		}, interval);
+
 		// _.each(data.ranking, function (user) {
 		// 	setInterval()
 		// 	content
