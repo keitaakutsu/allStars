@@ -1,56 +1,74 @@
-require({
+require.config({
 	baseUrl: '',
 	paths: {
 		lodash: 'js/lib/lodash',
 		chikuwa: 'js/lib/chikuwa',
+		view: 'js/client/view'
 	},
+	urlArgs: 'bust=' + (new Date()).getTime()
 });
 
-define(['lodash', 'chikuwa'], function (_, $) {
+define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	var socket = io.connect(location.origin);
 	var id = $.storage('_AS_ID');
+
+	// check registered
 	if (id) {
-		console.log('already registered at once');
 		socket.emit('register', {id: id});
 	} else {
-		console.log('initial register');
+		view.top();
 		socket.emit('register', {name: 'name'});
 	}
 
 	socket.on('registered', function (user) {
-		console.log(user);
+		user = user || {};
+		view.resistered();
 		$.storage('_AS_ID', user.id);
 	});
 
 	socket.on('entry:start', function (data) {
-		console.log('entry:start', data);
+		view.entry('start', data);
 	});
+
 	socket.on('entry:exit', function (data) {
-		console.log('entryExit', data);
+		view.entry('exit', data);
 	});
+
 	socket.on('q:show', function (data) {
-		console.log('q:show', data);
+		view.quiz('show', data);
 	});
+
 	socket.on('q:start', function (data) {
-		console.log('q:start', data);
+		var content = view.quiz('start', data);
+		content.on('answer', function(e, num) {
+			socket.emit('q:answer', {id: id, answer: 1});
+		});
+		console.log('q:start');
 	});
+
 	socket.on('q:timeup', function (data) {
-		console.log('q:timeup', data);
+		view.quiz('timeup', data);
+		console.log('q:timeup');
 	});
+
 	socket.on('q:check', function (data) {
-		console.log('q:check', data);
+		view.quiz('check', data);
 	});
+
 	socket.on('q:answer', function (data) {
-		console.log('q:answer', data);
+		view.quiz('answer', data);
 	});
+
 	socket.on('q:ranking', function (data) {
-		console.log('q:ranking', data);
+		view.quiz('ranking', data);
 	});
+
 	socket.on('all:ranking', function (data) {
-		console.log('ranking ' + data);
+		view.all('ranking', data);
 	});
+
 	socket.on('all:ending', function (data) {
-		console.log('ending', data);
+		view.all('ending', data);
 	});
 
 	// answer
@@ -58,5 +76,5 @@ define(['lodash', 'chikuwa'], function (_, $) {
 	//	 id: id,
 	//	 answer: answer
 	// }
-	socket.emit('q:answer', data);
+	//socket.emit('q:answer', data);
 });
