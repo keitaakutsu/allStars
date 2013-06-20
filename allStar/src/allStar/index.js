@@ -181,6 +181,7 @@ function getAllData(state) {_
 }
 
 exports.answer = function (data) {
+	console.log(data);
 	console.log('answer');
 	var self = this;
 	var state = self.state.get();
