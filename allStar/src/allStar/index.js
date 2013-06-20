@@ -25,6 +25,7 @@ exports.register = function (connectionId, data) {
 		});
 		userList.push(user);
 	}
+	console.log('userConnection******************');
 	console.log(userList);
 	return user;
 };
