@@ -55,7 +55,6 @@ function getQData(state) {
 	var q = _.find(question, {id: id});
 	switch (states[1]) {
 		case 'show':
-			correctAnswerList = [];
 			answers = {
 				1: 0,
 				2: 0,
@@ -68,6 +67,7 @@ function getQData(state) {
 			};
 			break;
 		case 'start':
+			correctAnswerList = [];
 			data = {
 				id: id,
 				question: q.question,
@@ -194,8 +194,8 @@ exports.answer = function (data) {
 	var user = _.find(userList, {id: data.id});
 	if (!user) return;
 	console.log('user validation');
-	var already = _.find(user.answerList, {id: questionId});
-	if (already) return;
+	//var already = _.find(user.answerList, {id: questionId});
+	//if (already) return;
 
 	answers[data.answer]++;
 	console.log('count Answer');
