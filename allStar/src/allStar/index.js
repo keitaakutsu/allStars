@@ -4,6 +4,12 @@ var question = require('./question').data;
 // manage users
 var userList = [];
 var correctAnswerList = [];
+var answers = {
+	1: 0,
+	2: 0,
+	3: 0,
+	4: 0
+}
 
 exports.register = function (connectionId, data) {
 	// get user from list
@@ -49,6 +55,12 @@ function getQData(state) {
 	switch (states[1]) {
 		case 'show':
 			correctAnswerList = [];
+			answers = {
+				1: 0,
+				2: 0,
+				3: 0,
+				4: 0
+			}
 			data = {
 				id: id,
 				question: q.question
@@ -65,13 +77,8 @@ function getQData(state) {
 		case 'timeup':
 			break;
 		case 'check':
-			data = {
-				id: id,
-				1: 11,
-				2: 12,
-				3: 13,
-				4: 14
-			};
+			answers.id = id;
+			data = answers;
 			break;
 		case 'answer':
 			data = {
@@ -82,11 +89,79 @@ function getQData(state) {
 		case 'ranking':
 			data = {
 				id: id,
-				ranking: correctAnswerList
+				ranking: rankingSort(correctAnswerList)
 			};
 			break;
 	}
 	return data;
+}
+function rankingSort(list) {
+	var result = _.sortBy(list, function (user) {
+		return user.time;
+	});
+	_.each(result, function (user, index) {
+		user.rank = index + 1;
+	});
+	return result;
+}
+
+function rankingSort(list) {
+	var result = _.sortBy(list, function (user) {
+		return user.time;
+	});
+	_.each(result, function (user, index) {
+		user.rank = index + 1;
+	});
+	return result;
+}
+
+
+
+function allRankingSort(cluster) {
+	var result = [];
+	var _cluster = [];
+	_.each(cluster, function (v, k) {
+		_cluster[k] = _.sortBy(v, function (user) {
+			return user.time;
+		});
+	});
+
+	var __cluster = _.sortBy(_cluster, function (v, k) {
+		return k;
+	});
+
+	_.each(__cluster, function (data) {
+		result = result.concat(data);
+	});
+
+	return result;
+}
+
+
+function getAllRanking() {
+	var cluster = {};
+	_.each(userList, function (user) {
+		var answer = user.answerList;
+		var count = 0;
+		var timeCount = 0;
+		_.each(answer, function (ans) {
+			if (ans.flg) {
+				count++;
+				timeCount += ans.time;
+			}
+		});
+		if (!cluster[count]) {
+			cluster[count] = [];
+		}
+		cluster.push({
+			id: user.id	,
+			name: user.name,
+			time: timeCount,
+			count: count,
+		});
+	});
+	var result = allRankingSort(cluster);
+	return result;
 }
 
 function getAllData(state) {_
@@ -94,27 +169,31 @@ function getAllData(state) {_
 	var states = state.split(':');
 	switch (states[1]) {
 		case 'ranking':
+			data = getAllRanking();
 			break;
 		case 'end':
 			break;
 		case 'ending':
 			break;
 	}
-	return 'all';
+	return data;
 }
 
 exports.answer = function (data) {
 	var self = this;
 	var state = self.state.get();
 	var states = state.split(':');
-	var questionId = states[2];
+	var questionId = parseInt(states[2]);
 
-	var q = _.find(question, {id: parseInt(questionId)});
+	var q = _.find(question, {id: questionId});
 	var ans = q.answer;
 
 	var user = _.find(userList, {id: data.id});
 	if (!user) return;
+	//var already = _.find(user.answerList, {id: questionId});
+	//if (already) return;
 
+	answers[data.answer]++;
 	var flg = false;
 	if (data.answer == ans) {
 		flg = true;
@@ -191,7 +270,7 @@ exports.timer = {
 	get: function () {
 		var self = this;
 		var now = new Date();
-		return (now - self.time);
+		return (now - self.time) / 1000;
 	}
 };
 

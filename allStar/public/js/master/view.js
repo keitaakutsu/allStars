@@ -4,15 +4,17 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		'-webkit-box-align': 'center',
 		'-webkit-box-pack': 'center',
 	};
+	var tag = $.tag;
+	var backContainer = tag('#back-container');
 	var container = $('#main');
-	var backContainer = $.tag('.back-container');
+
 	var entry = function (state, data) {
-		var entry = $.tag('#entry').css(center);
+		var entry = tag('#entry').css(center);
 		if (state === 'start') {
-			var logo = $.tag('img').attr('src', 'img/logo.png');
+			var logo = tag('img').attr('src', 'img/logo.png');
 			entry.append(logo);
 		} else {
-			container.empty();
+			resetView();
 		}
 	};
 
@@ -24,45 +26,49 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	var quizShow = function (state, data) {
 		resetView();
 		var name = (data.id)? '第' + data.id + '問': '練習問題';
-		var content = $.tag('#show.container')
+		var content = tag('#container')
 			.tag('#header')
 				.tag('h2.text-center').text(name).gat()
 			.gat()
 			.tag('h1.question.text-center').css(center).text(data.question).gat()
+
 		container.append(content);
 		container.append(backContainer);
 	};
 
 	var quiz = function (state, data, call) {
-		var type;
+		data = data || {};
+		var type = data.type || null;
+
+		// quiz start
 		if (state === 'start') {
 			resetView();
-			var name = (data.id)? '第' + data.id + '問': '練習問題';
-			type = data.type;
+			var name = data.id ? '第' + data.id + '問': '練習問題';
+
 			if (type === 'text') {
+
 				var list = data.answerList;
 				var question = data.question;
-				var content = $.tag('#quiz.container')
-					.tag('#header.row')
-						.tag('h2.span10').text(name + ': ' + question).gat()
-					.gat()
-					.tag('.answerList.row')
-						.tag('.answerLine.row').attr('id','a'+list[0].id).text(list[0].id+'. '+list[0].content).gat()
-						.tag('.answerLine.row').attr('id','a'+list[1].id).text(list[1].id+'. '+list[1].content).gat()
-						.tag('.answerLine.row').attr('id','a'+list[2].id).text(list[2].id+'. '+list[2].content).gat()
-						.tag('.answerLine.row').attr('id','a'+list[3].id).text(list[3].id+'. '+list[3].content).gat()
-					.gat();
+				var content = tag('#quiz.container')
+								.tag('#header.row')
+									.tag('h2.span10').text(name + ': ' + question).gat()
+								.gat()
+								.tag('.answerList.row')
+									.tag('.answer-line.row').attr('id','a'+list[0].id).text(list[0].id+'. '+list[0].content).gat()
+									.tag('.answer-line.row').attr('id','a'+list[1].id).text(list[1].id+'. '+list[1].content).gat()
+									.tag('.answer-line.row').attr('id','a'+list[2].id).text(list[2].id+'. '+list[2].content).gat()
+									.tag('.answer-line.row').attr('id','a'+list[3].id).text(list[3].id+'. '+list[3].content).gat()
+								.gat();
+
 			} else if (type === 'image') {
+
 
 
 			}
 
-			container.append(content);
-			container.append(backContainer);
-
-			var timer = $.tag('#timer.span2').text(15);
+			var timer = tag('#timer.span2').text(15);
 			var time = 15;
-			var timerId = setInterval(function () {
+			var timerId = setInterval(function() {
 				if (time <= 0) {
 					clearInterval(timerId);
 					call();
@@ -71,38 +77,32 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 				time--;
 				timer.text(String(time));
 			}, 1000);
+
+			container.append(content);
+			container.append(backContainer);
 			$('#header').append(timer);
+
+		// time up
 		} else if (state === 'timeup') {
-			// toggle color
 
-
+		// answer check
 		} else if (state === 'check') {
-			var a1 = $('#a1');
-			var a2 = $('#a2');
-			var a3 = $('#a3');
-			var a4 = $('#a4');
-			console.log(a1, a2, a3, a4);
 
-			var a1c = $.tag('.answerCount').text(data[1]);
-			var a2c = $.tag('.answerCount').text(data[2]);
-			var a3c = $.tag('.answerCount').text(data[3]);
-			var a4c = $.tag('.answerCount').text(data[4]);
+			$('#a1').append(tag('.answer-count').text(data[1]));
+			$('#a2').append(tag('.answer-count').text(data[2]));
+			$('#a3').append(tag('.answer-count').text(data[3]));
+			$('#a4').append(tag('.answer-count').text(data[4]));
 
-			a1.append(a1c);
-			a2.append(a2c);
-			a3.append(a3c);
-			a4.append(a4c);
-
-
+		// show answer
 		} else if (state === 'answer') {
-			var answer = data.answer;
-			$('#a'+answer).css({'background-color':'red'});
+			var answer = data.answer || 1;
+			$('#a'+answer).cls('answer')
 		}
 	};
 
 	var ranking = function (state, data) {
 		resetView();
-		var c = $.tag('#ranking.container');
+		var c = tag('#ranking.container');
 
 		_.each(data.ranking, function (user) {
 			c.tag('.ranking-user.row').text(user.rank +' '+user.name+' '+user.time).gat();

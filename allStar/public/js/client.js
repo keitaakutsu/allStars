@@ -12,13 +12,11 @@ require.config({
 define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	var socket = io.connect(location.origin);
 	var id = $.storage('_AS_ID');
+	localStorage.clear();
 
 	// check registered
 	if (id) {
 		socket.emit('register', {id: id});
-	} else {
-		view.top();
-		socket.emit('register', {name: 'name'});
 	}
 
 	socket.on('registered', function (user) {
@@ -28,7 +26,12 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	});
 
 	socket.on('entry:start', function (data) {
-		view.entry('start', data);
+		console.log('test');
+		var top = view.top();
+		top.on('submit', function(name) {
+			console.log(name);
+			socket.emit('register', {name: 'name'});
+		});
 	});
 
 	socket.on('entry:exit', function (data) {
