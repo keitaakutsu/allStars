@@ -65,47 +65,63 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* line 5, ../sass/main.sass */
-html, body, #main {
+html, body, #wrapper {
   display: -webkit-box;
   -webkit-box-align: center;
   -webkit-box-pack: center;
+  height: 100%;
+  width: 100%;
 }
 
-/* line 10, ../sass/main.sass */
+/* line 12, ../sass/main.sass */
+#wrapper {
+  background: url('/img/background.jpg?1371735582') no-repeat left top;
+  background-size: cover;
+}
+
+/* line 16, ../sass/main.sass */
 #main {
   position: relative;
-  background-image: url("img/background.jpg");
+  background-size: cover;
   z-index: 10;
+  height: 100%;
+  width: 100%;
 }
-/* line 14, ../sass/main.sass */
-#main .question {
+
+/* line 23, ../sass/main.sass */
+.question {
   height: 80%;
 }
-/* line 17, ../sass/main.sass */
-#main .answerList {
+
+/* line 26, ../sass/main.sass */
+.answerList {
   height: 80%;
+  width: 80%;
 }
-/* line 20, ../sass/main.sass */
-#main .answerBox {
+
+/* line 30, ../sass/main.sass */
+.answerBox {
   background-color: black;
   height: 200px;
   margin: 20px;
 }
-/* line 25, ../sass/main.sass */
-#main .answerLine {
+
+/* line 35, ../sass/main.sass */
+.answerLine {
   height: 20%;
   width: 100%;
   background-color: black;
   color: white;
   margin: 10px;
 }
-/* line 32, ../sass/main.sass */
-#main .answerCount {
+
+/* line 42, ../sass/main.sass */
+.answerCount {
   color: white;
   background-color: pink;
 }
 
-/* line 36, ../sass/main.sass */
+/* line 46, ../sass/main.sass */
 #back-container {
   position: absolute;
   top: 5%;
@@ -118,19 +134,19 @@ html, body, #main {
   -webkit-border-radius: 4px;
 }
 
-/* line 47, ../sass/main.sass */
-#container {
+/* line 57, ../sass/main.sass */
+.container {
   position: relative;
   height: 90%;
 }
 
-/* line 51, ../sass/main.sass */
+/* line 61, ../sass/main.sass */
 #header {
   position: relative;
   height: 20%;
 }
 
-/* line 55, ../sass/main.sass */
+/* line 65, ../sass/main.sass */
 #timer {
   position: absolute;
   display: -webkit-box;
