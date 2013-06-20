@@ -70,6 +70,7 @@ socket.on('connection', function (client) {
 		if (!data) return;
 		var user = AllStar.register(id, data);
 		client.emit('registered', user);
+		socket.sockets.emit('register:member', {sum: AllStar.getRegistered()});
 	});
 
 

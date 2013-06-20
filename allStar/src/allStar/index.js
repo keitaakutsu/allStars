@@ -22,6 +22,9 @@ exports.register = function (connectionId, data) {
 	}
 	return user;
 };
+exports.getRegistered = function () {
+	return userList.length;
+};
 
 exports.getData = function (state) {
 	var date;
