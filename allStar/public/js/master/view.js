@@ -6,8 +6,9 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	};
 	var tag = $.tag;
 	var container = $('#container');
-	var header = $('#header');
-	var main = $('#main');
+	var modal = tag('#modal');
+	var header = tag('#header');
+	var main = tag('#main');
 
 	var entry = function (state, data) {
 		var entry = tag('#entry').css(center);
@@ -27,13 +28,12 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	var quizShow = function (state, data) {
 		resetView();
 		var name = (data.id)? '第' + data.id + '問': '練習問題';
-		var content = tag('.container')
-			.append(header)
-				.tag('h2.text-center').text(name).gat()
-			.gat()
-			.tag('h1.question.text-center').css(center).text(data.question).gat()
+		var content = tag('.box')
+						.tag('h2.text-center').text(name).gat()
+						.tag('h1.question.text-center').css(center).text(data.question).gat()
 
 		main.append(content);
+		container.append(main);
 	};
 
 	var quiz = function (state, data, call) {
@@ -49,41 +49,59 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 				var list = data.answerList;
 				var question = data.question;
-				var content = tag('#quiz.container')
-								.tag('#header.row')
-									.tag('h2.span10').text(name + ': ' + question).gat()
-								.gat()
-								.tag('.answerList.row')
-									.tag('.answer-line.row').attr('id','a'+list[0].id).text(list[0].id+'. '+list[0].content).gat()
-									.tag('.answer-line.row').attr('id','a'+list[1].id).text(list[1].id+'. '+list[1].content).gat()
-									.tag('.answer-line.row').attr('id','a'+list[2].id).text(list[2].id+'. '+list[2].content).gat()
-									.tag('.answer-line.row').attr('id','a'+list[3].id).text(list[3].id+'. '+list[3].content).gat()
+
+				var title = tag('h2.title').text(name + ': ' + question);
+				header.append(title);
+				var content = tag('#quiz')
+								.tag('.answer-list')
+									.tag('.answer-line').attr('id','a'+list[0].id).text(list[0].id+'. '+list[0].content).gat()
+									.tag('.answer-line').attr('id','a'+list[1].id).text(list[1].id+'. '+list[1].content).gat()
+									.tag('.answer-line').attr('id','a'+list[2].id).text(list[2].id+'. '+list[2].content).gat()
+									.tag('.answer-line').attr('id','a'+list[3].id).text(list[3].id+'. '+list[3].content).gat()
 								.gat();
+				main.append(content);
 
 			} else if (type === 'image') {
 
+				var list = data.anserList;
+				var question = data.question;
 
+				var title = tag('hs.span10').text(name + ': ' + question);
+				header.append(title);
+				var content = tag('#quiz.box')
+								.tag('.box.top')
+									.tag('.answer-box').data({id: 'a' + list[0].id}).text(list[0].id + '. ' + list[0].content).gat()
+									.tag('.answer-box').data({id: 'a' + list[1].id}).text(list[1].id + '. ' + list[1].content).gat()
+								.gat()
+								.tag('.box.bottom')
+									.tag('.answer-box').data({id: 'a' + list[2].id}).text(list[2].id + '. ' + list[2].content).gat()
+									.tag('.answer-box').data({id: 'a' + list[3].id}).text(list[3].id + '. ' + list[3].content).gat()
+								.gat()
+
+				main.append(content);
 
 			}
 
-			var timer = tag('#timer.span2').text(3);
 			var time = 3;
+			var timer = tag('#timer').text(time);
 			var timerId = setInterval(function() {
 				if (time <= 0) {
 					clearInterval(timerId);
-					call();
+					//call();
 					return;
 				}
 				time--;
 				timer.text(String(time));
 			}, 1000);
 
-			main.append(content);
-			$('#header').append(timer);
+			header.append(timer);
+
+			container.append(header);
+			container.append(main);
 
 		// time up
 		} else if (state === 'timeup') {
-
+			//toggle color
 		// answer check
 		} else if (state === 'check') {
 
@@ -101,19 +119,113 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 	var ranking = function (state, data) {
 		resetView();
-		var c = tag('#ranking.container');
+		var content = tag('#ranking');
 
-		_.each(data.ranking, function (user) {
-			c.tag('.ranking-user.row').text(user.rank +' '+user.name+' '+user.time).gat();
-		});
+		data = data || {};
+		data.ranking || [];
+		// data.ranking = data.ranking.length === 0 ? [{
+		// 	rank: 1,
+		// 	name: 'test',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 2,
+		// 	name: 'test2',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 3,
+		// 	name: 'test3',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 2,
+		// 	name: 'test2',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 3,
+		// 	name: 'test3',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 2,
+		// 	name: 'test2',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 3,
+		// 	name: 'test3',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 2,
+		// 	name: 'test2',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 3,
+		// 	name: 'test3',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 2,
+		// 	name: 'test2',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 3,
+		// 	name: 'test3',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 2,
+		// 	name: 'test2',
+		// 	time: '11.1'
+		// },
+		// {
+		// 	rank: 3,
+		// 	name: 'test3',
+		// 	time: '11.1'
+		// }
+		// ] : data.ranking;
 
-		main.append(c);
+		var interval = 5000 / data.ranking.length;
+		var cnt = 0;
+		setTimeout(function() {
+			if (data.ranking[cnt ++]) {
+				var user = data.ranking[cnt];
+				content
+					.prepend(
+						tag('.ranking-box')
+							.tag('.ranking-rank').text(user.rank).gat()
+							.tag('.ranking-user').text(user.name).gat()
+							.tag('.ranking-time').text(user.time).gat()
+					);
+				setTimeout(arguments.callee, interval);
+			} else {
 
+			}
+		}, interval);
+		// _.each(data.ranking, function (user) {
+		// 	setInterval()
+		// 	content
+		// 		.tag('.ranking-box')
+		// 			.tag('.ranking-rank').text(user.rank).gat()
+		// 			.tag('.ranking-user').text(user.name).gat()
+		// 			.tag('.ranking-time').text(user.time).gat()
+		// 		.gat();
+		// });
+
+		modal.append(content);
+		container.append(modal);
 	};
 
 	var resetView = function() {
+		container.empty();
 		header.empty();
 		main.empty();
+		modal.empty();
 	};
 
 
