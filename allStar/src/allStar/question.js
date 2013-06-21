@@ -137,12 +137,12 @@ exports.data = [
 		type: 'text',//'text'
 		question: 'やまむーの身(cm)長とえのきの体重(kg)を足すと？',
 		answerList: [
-			{id: 1, content: '??'},
-			{id: 2, content: '??'},
-			{id: 3, content: '??'},
-			{id: 4, content: '??'},
+			{id: 1, content: '約270'},
+			{id: 2, content: '約290'},
+			{id: 3, content: '約310'},
+			{id: 4, content: '約330'},
 		],
-		answer: 4
+		answer: 2
 	},
 	{
 		id: 12,
