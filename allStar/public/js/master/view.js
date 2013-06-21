@@ -69,10 +69,14 @@ define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 				header.append(title);
 				var content = tag('#quiz')
 								.tag('.answer-list')
-									.tag('.answer-line').attr('id','a'+list[0].id).text(list[0].id+'. '+list[0].content).gat()
-									.tag('.answer-line').attr('id','a'+list[1].id).text(list[1].id+'. '+list[1].content).gat()
-									.tag('.answer-line').attr('id','a'+list[2].id).text(list[2].id+'. '+list[2].content).gat()
-									.tag('.answer-line').attr('id','a'+list[3].id).text(list[3].id+'. '+list[3].content).gat()
+									.tag('.answer-line').attr('id','a'+list[0].id)
+										.text(list[0].id+'. '+list[0].content).gat()
+									.tag('.answer-line').attr('id','a'+list[1].id)
+										.text(list[1].id+'. '+list[1].content).gat()
+									.tag('.answer-line').attr('id','a'+list[2].id)
+										.text(list[2].id+'. '+list[2].content).gat()
+									.tag('.answer-line').attr('id','a'+list[3].id)
+										.text(list[3].id+'. '+list[3].content).gat()
 								.gat();
 				main.append(content);
 
@@ -156,76 +160,8 @@ define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 		resetView();
 		var content = tag('#ranking');
 		data = data || {};
-		data.ranking = data.ranking || [];
 
-		var ranking = data.ranking.length === 0 ?
-		[{
-			rank: 1,
-			name: 'test',
-			time: '11.1'
-		},
-		{
-			rank: 2,
-			name: 'test2',
-			time: '11.1'
-		},
-		{
-			rank: 3,
-			name: 'test3',
-			time: '11.1'
-		},
-		{
-			rank: 4,
-			name: 'test2',
-			time: '11.1'
-		},
-		{
-			rank: 5,
-			name: 'test3',
-			time: '11.1'
-		},
-		{
-			rank: 6,
-			name: 'test2',
-			time: '11.1'
-		},
-		{
-			rank: 7,
-			name: 'test3',
-			time: '11.1'
-		},
-		{
-			rank: 8,
-			name: 'test2',
-			time: '11.1'
-		},
-		{
-			rank: 9,
-			name: 'test3',
-			time: '11.1'
-		},
-		{
-			rank: 10,
-			name: 'test2',
-			time: '11.1'
-		},
-		{
-			rank: 11,
-			name: 'test3',
-			time: '11.1'
-		},
-		{
-			rank: 12,
-			name: 'test2',
-			time: '11.1'
-		},
-		{
-			rank: 13,
-			name: 'test3',
-			time: '11.1'
-		}
-		]
-		: data.ranking;
+		var ranking = data.ranking;
 
 		if (state === 'q') {
 			var interval = 5000 / ranking.length;
@@ -251,14 +187,7 @@ define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 
 			var ranking = data.ranking || [];
 			var border = data.border;
-			// dummy data
-			for (var i = 0; i < 150; i++) {
-				ranking.push({
-					rank: i + 1,
-					name: 'testman',
-					tiem: '12345'
-				});
-			}
+
 			var limit,
 				offset;
 
@@ -269,7 +198,7 @@ define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 					break;
 				case '20':
 					limit = 50 - border;
-					offset = 50;
+					offset = 50 - 1;
 					break;
 				case '5':
 					limit = 20 - border;
