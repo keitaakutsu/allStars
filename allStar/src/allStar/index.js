@@ -175,7 +175,10 @@ function getAllData(state) {_
 	var states = state.split(':');
 	switch (states[1]) {
 		case 'ranking':
-			data = getAllRanking();
+			data = {
+				ranking: getAllRanking(),
+				border: states[2]
+			};
 			break;
 		case 'end':
 			break;

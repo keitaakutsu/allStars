@@ -1,4 +1,4 @@
-define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
+define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 	var center = {
 		'display':'-webkit-box',
 		'-webkit-box-align': 'center',
@@ -10,11 +10,19 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	var header = tag('#header');
 	var main = tag('#main');
 
+	$('#wrapper').css({
+		width: $.viewport().screen.width,
+		height: $.viewport().screen.height,
+		overflow: 'hidden'
+	});
+
 	var entry = function (state, data) {
 		var entry = tag('#entry').css(center);
 		if (state === 'start') {
 			var logo = tag('img').attr('src', 'img/logo.png');
+			var member = tag('#member');
 			entry.append(logo);
+			entry.append(member);
 		} else {
 			resetView();
 		}
@@ -22,10 +30,9 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	};
 
 	var updateMember = function (num) {
-		var member = tag('#member');
+		var member = $('#member');
 		var message = '只今の参加人数: ' + num + '人';
-		member.text(num);
-		container.append(member);
+		member.text(message);
 	};
 
 	var quizShow = function (state, data) {
@@ -37,7 +44,7 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		content.css({
 			position: 'relative',
 			top: '50%',
-			marginTop: -content.height()/2
+			marginTop: -content.height()
 		});
 
 		modal.append(content);
@@ -78,24 +85,28 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 				var content = tag('#quiz')
 								.tag('.top-container')
-									.tag('.answer-box').data({id: 'a' + list[0].id})
+									.tag('.answer-box').attr({id: 'a' + list[0].id})
+										.tag('.number').text('1').gat()
 										.tag('.in')
 											.tag('img').attr({src: list[0].content}).gat()
 										.gat()
 									.gat()
-									.tag('.answer-box').data({id: 'a' + list[1].id})
+									.tag('.answer-box').attr({id: 'a' + list[1].id})
+										.tag('.number').text('2').gat()
 										.tag('.in')
 											.tag('img').attr({src: list[1].content}).gat()
 										.gat()
 									.gat()
 								.gat()
 								.tag('.bottom-container')
-									.tag('.answer-box').data({id: 'a' + list[2].id})
+									.tag('.answer-box').attr({id: 'a' + list[2].id})
+										.tag('.number').text('3').gat()
 										.tag('.in')
 											.tag('img').attr({src: list[2].content}).gat()
 										.gat()
 									.gat()
-									.tag('.answer-box').data({id: 'a' + list[3].id})
+									.tag('.answer-box').attr({id: 'a' + list[3].id})
+										.tag('.number').text('4').gat()
 										.tag('.in')
 											.tag('img').attr({src: list[3].content}).gat()
 										.gat()
@@ -237,27 +248,122 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 				}
 			}, interval);
 		} else if (state === 'all') {
-			var interval = 5000 / ranking.length;
-			var cnt = ranking.length;
 
-			setTimeout(function() {
-				cnt-- ;
-				if (cnt < 0) {
-				} else {
-					var user = ranking[cnt];
-					var rank = user.rank <= 5 ? 'large' : '';
-					content
-						.prepend(
+			var ranking = data.ranking || [];
+			var border = data.border;
+			// dummy data
+			for (var i = 0; i < 150; i++) {
+				ranking.push({
+					rank: i + 1,
+					name: 'testman',
+					tiem: '12345'
+				});
+			}
+			var limit,
+				offset;
+
+			switch (border) {
+				case '50':
+					limit = ranking.length - border + 1;
+					offset = ranking.length;
+					break;
+				case '20':
+					limit = 50 - border;
+					offset = 50;
+					break;
+				case '5':
+					limit = 20 - border;
+					offset = 20;
+					break;
+				case '4':
+					limit = 1;
+					offset = 4;
+					break;
+				case '3':
+					limit = 1;
+					offset = 3;
+					break;
+				case '2':
+					limit = 1;
+					offset = 2;
+					break;
+				case '1':
+					limit = 1;
+					offset = 1
+					break;
+				default:
+					console.log('default');
+			}
+
+			showRanking(offset, limit);
+
+			function showRanking(offset, limit) {
+				var interval = 5000/limit;
+				setTimeout(function() {
+					limit --;
+					if (limit < 0) {
+
+					} else {
+						var user = ranking[--offset];
+						var rank = user.rank <= 5 ? 'large' : '';
+						content.prepend(
 							tag('.ranking-box').cls(rank)
 								.tag('.ranking-rank').text(user.rank).gat()
 								.tag('.ranking-user').text(user.name).gat()
 								.tag('.ranking-time').text(user.time).gat()
 						);
-					setTimeout(arguments.callee, interval);
-				}
-			}, interval);
+						ranking.pop();
+						setTimeout(arguments.callee, interval);
+					}
+				}, interval);
+			}
+
+			// var rankingFlow = {
+			// 	start: function() {
+			// 		content.empty();
+			// 		var cnt = ranking.length > 55 ? 50 : ranking.length - 5 ;
+			// 		showRanking(cnt, function() {
+			// 			rankingFlow.next();
+			// 		});
+			// 	},
+			// 	next: function() {
+			// 		content.empty();
+			// 		cnt = ranking.length > 15 ? ranking.length - 5 : ranking.length;
+			// 		showRanking(cnt, function() {
+			// 			if (ranking.length > 0) {
+			// 				rankingFlow.end(cnt);
+			// 			}
+			// 		});
+			// 	},
+			// 	end: function() {
+			// 		content.empty();
+			// 		showRanking(ranking.length, function() {
+
+			// 		});
+			// 	}
+			// };
+
+			//rankingFlow.start();
 		}
 
+		modal.append(content);
+		container.append(modal);
+	};
+
+	var end = function(data) {
+		data = data || {};
+		resetView()
+		var content = tag('#ending.box')
+						.tag('h2.text-center').text('最終結果発表！').gat();
+		modal.append(content);
+		container.append(modal);
+	};
+
+	var ending = function(data) {
+		data = data || {};
+		resetView()
+		var content = tag('#ending.box')
+						.tag('h2.text-center').text('問題終了').gat();
 		modal.append(content);
 		container.append(modal);
 	};
@@ -269,13 +375,14 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		modal.empty();
 	};
 
-
 	var view = {
 		entry: entry,
 		updateMember: updateMember,
 		QuizShow: quizShow,
 		Quiz: quiz,
-		Ranking: ranking
+		Ranking: ranking,
+		End: end,
+		Ending: ending
 	};
 
 	return view;

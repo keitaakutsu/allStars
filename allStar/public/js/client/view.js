@@ -6,23 +6,30 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 					.tag('.in').gat();
 	var emitter = tofu.init(tofu.EventEmitter);
 
-
+	$.hideAddressBar();
 
 	var top = function() {
 		resetView();
-		var textbox = tag('input', {type: 'text', id: 'entry-bame'});
-		var entry = tag('div#entry')
-						.tag('p').text('名前を入力してください。').gat()
+		var title = tag('#logo');
+		var textbox = tag('input', {type: 'text', id: 'entry-name'});
+		var content = tag('div#box')
+						.tag('p').text('名前を入力してください').gat()
 						.tag('p')
-							.append(textbox)
-							.tag('button', {value:'エントリー', id: 'btn-entry'})
+							.append(textbox).gat()
+							.tag('#btn-fb').text('クイズに参加する')
 							.tap(function() {
 								var name = textbox.value();
-								emitter.emit('submit', name);
-								textbox.value('');
+								if (name !== '') {
+									emitter.emit('submit', name);
+									textbox.value('');
+								}
 							})
 						.gat();
-		container.append(entry);
+		title.on('webkitAnimationEnd', function(e){
+			$('#box').cls('show');
+		});
+		container.append(title);
+		container.append(content);
 		return emitter;
 	}
 
@@ -42,6 +49,7 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 	};
 
 	var quiz = function (state, data) {
+		console.log(data);
 		data = data || {};
 		resetView()
 		var message = tag('div#message')
@@ -49,33 +57,50 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 
 		switch (state) {
 			case 'show':
-				var content = message.text(data.id ? '第' + data.id + '問': '練習問題');
+				var content = message.text(data.id ? '第' + data.id + '問' : '練習問題');
 			break;
 			case 'exit':
 				var content = message.text('終了!');
 			break;
 			case 'start':
-				var text = data.id ? '第'　+ data.id + '問' : '練習問題' ;
+				var text = data.id ? '第'　+ data.id + '問' : '練習問題';
+				var btnHeight = Math.abs(w.orientation) === 90 ? (w.innerHeight - 100) / 2 : (w.innerHeight - 100) / 4;
 				var content = tag('div#quiz-show')
 								.tag('p').cls('quiz').text(text).gat()
 								.tag('div#btns')
 									.tag('div#btn-top')
 										.tag('div.btn').cls('btn-1').text(1).data({id: 1})
 											.tap(select)
+											.css({
+												height: btnHeight,
+												lineHeight: btnHeight
+											})
 											.on('resize', resize)
 										.gat()
 										.tag('div.btn').cls('btn-2').text(2).data({id: 2})
 											.tap(select)
+											.css({
+												height: btnHeight,
+												lineHeight: btnHeight
+											})
 											.on('resize', resize)
 										.gat()
 									.gat()
 									.tag('div#btn-top')
 										.tag('div.btn').cls('btn-3').text(3).data({id: 3})
 											.tap(select)
+											.css({
+												height: btnHeight,
+												lineHeight: btnHeight
+											})
 											.on('resize', resize)
 										.gat()
 										.tag('div.btn').cls('btn-4').text(4).data({id: 4})
 											.tap(select)
+											.css({
+												height: btnHeight,
+												lineHeight: btnHeight
+											})
 											.on('resize', resize)
 										.gat()
 									.gat()
@@ -93,7 +118,6 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 					emitter.emit('answer', answer);
 				}
 
-				var btnHeight = Math.abs(w.orientation) === 90 ? (w.innerHeight - 50) / 2 : (w.innerHeight - 50) / 4;
 				function resize(e) {
 					$(this).css({
 						height: btnHeight,
@@ -109,10 +133,10 @@ define(['chikuwa', 'tofu'], function ($, tofu) {
 				var content = message.text('アンサーチェック！');
 			break;
 			case 'answer':
-				var content = message.text('答えは');
+				var content = message.text('正解発表');
 			break;
 			case 'ranking':
-				var content = message.text('ランキング表示');
+				var content = message.text('ランキング表示中...');
 			break;
 			default:
 			;

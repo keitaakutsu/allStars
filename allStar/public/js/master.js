@@ -83,6 +83,9 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 		sounds.result.play();
 		view.Ranking('q', data);
 	});
+	socket.on('all:end', function() {
+		view.End();
+	});
 	socket.on('all:ranking', function (data) {
 		console.log('all:ranking',data);
 		sounds.result.load();
@@ -91,6 +94,7 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 	});
 	socket.on('all:ending', function (data) {
 		console.log('all:ending',data);
+		view.Ending(data);
 	});
 
 	// add new user

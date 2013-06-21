@@ -15,17 +15,16 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 
 	// check registered
 	if (id) {
-		//socket.emit('register', {id: id});
+		socket.emit('register', {id: id});
 	} else {
 		var top = view.top();
-		// top.on('submit', function(name) {
-		// 	socket.emit('register', {name: name});
-		// });
+		top.on('submit', function(name) {
+			socket.emit('register', {name: name});
+		});
 	}
-	socket.emit('register', {name: 'testman'});
+	//socket.emit('register', {name: 'testman'});
 
 	socket.on('registered', function (user) {
-		console.log('registered');
 		user = user || {};
 		view.resistered();
 
@@ -34,7 +33,6 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	});
 
 	socket.on('entry:start', function (data) {
-		console.log('test');
 	});
 
 	socket.on('entry:exit', function (data) {
@@ -48,7 +46,6 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	socket.on('q:start', function (data) {
 		var content = view.quiz('start', data);
 		content.once('answer', function(num) {
-			console.log(num);
 			socket.emit('q:answer', {id: id, answer: num});
 		});
 	});

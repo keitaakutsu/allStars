@@ -108,19 +108,21 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 html, body {
   width: 100%;
   height: 100%;
-  overflfow: hidden;
   margin: 0px;
   line-height: 1.7;
 }
 
-/* line 34, ../sass/client.sass */
+/* line 33, ../sass/client.sass */
 #wrapper {
-  background: url('/img/background.jpg?1371735582') no-repeat left top;
+  background: url('/img/background.jpg?1371735582') repeat-y left top;
   background-size: cover;
-  padding: 10px 0;
   height: 100%;
+  width: 100%;
+  min-height: 420px;
+  overflow: hidden;
+  padding-top: 10px;
 }
-/* line 39, ../sass/client.sass */
+/* line 41, ../sass/client.sass */
 #wrapper #logo {
   background: url('/img/logo3.png?1371561301') no-repeat left top;
   width: 278.5px;
@@ -129,7 +131,7 @@ html, body {
   margin: 10px auto;
   opacity: 1;
   position: relative;
-  top: 100px;
+  top: 80px;
   -webkit-animation-name: bound;
   -webkit-animation-duration: 1000ms;
   -webkit-animation-iteration-count: 1;
@@ -137,7 +139,7 @@ html, body {
   -webkit-animation-play-state: running;
   -webkit-animation-delay: 0s;
 }
-/* line 56, ../sass/client.sass */
+/* line 58, ../sass/client.sass */
 #wrapper #message {
   background: rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
@@ -157,14 +159,14 @@ html, body {
   text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 71, 153, 0.5)), to(rgba(0, 61, 143, 0.5)));
 }
-/* line 80, ../sass/client.sass */
+/* line 82, ../sass/client.sass */
 #wrapper #message .in {
   box-sizing: border-box;
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2) inset;
   padding: 10px;
   height: 100%;
 }
-/* line 86, ../sass/client.sass */
+/* line 88, ../sass/client.sass */
 #wrapper #box {
   background: rgba(255, 255, 255, 0.6);
   border: solid 3px white;
@@ -174,19 +176,31 @@ html, body {
   margin: 10px auto;
   border-radius: 4px;
   position: relative;
-  top: 110px;
+  top: 90px;
   opacity: 0;
   -webkit-transition: all 500ms linear;
 }
-/* line 99, ../sass/client.sass */
+/* line 101, ../sass/client.sass */
 #wrapper #box.show {
   opacity: 1;
 }
-/* line 101, ../sass/client.sass */
+/* line 103, ../sass/client.sass */
 #wrapper #box.hide {
   opacity: 0;
 }
-/* line 103, ../sass/client.sass */
+/* line 105, ../sass/client.sass */
+#wrapper #box #entry-name {
+  width: 100%;
+  border-radius: 2px;
+  border: solid 1px white;
+  height: 20px;
+  line-height: 20px;
+}
+/* line 111, ../sass/client.sass */
+#wrapper #box button {
+  width: 100%;
+}
+/* line 113, ../sass/client.sass */
 #wrapper .quiz {
   width: 90%;
   height: 40px;
@@ -199,35 +213,35 @@ html, body {
   text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 71, 153, 0.5)), to(rgba(0, 61, 143, 0.5)));
 }
-/* line 114, ../sass/client.sass */
+/* line 124, ../sass/client.sass */
 #wrapper #btns {
   padding: 10px 0;
 }
 @media only screen and (orientation: portrait) {
-  /* line 116, ../sass/client.sass */
+  /* line 126, ../sass/client.sass */
   #wrapper #btns #btn-top {
     display: block;
   }
 }
 @media only screen and (orientation: landscape) {
-  /* line 116, ../sass/client.sass */
+  /* line 126, ../sass/client.sass */
   #wrapper #btns #btn-top {
     display: -webkit-box;
   }
 }
 @media only screen and (orientation: portrait) {
-  /* line 121, ../sass/client.sass */
+  /* line 131, ../sass/client.sass */
   #wrapper #btns #btn-bottom {
     display: block;
   }
 }
 @media only screen and (orientation: landscape) {
-  /* line 121, ../sass/client.sass */
+  /* line 131, ../sass/client.sass */
   #wrapper #btns #btn-bottom {
     display: -webkit-box;
   }
 }
-/* line 126, ../sass/client.sass */
+/* line 136, ../sass/client.sass */
 #wrapper #btns .btn {
   -webkit-box-flex: 1;
   box-sizing: border-box;
@@ -243,12 +257,12 @@ html, body {
   border-bottom: solid 12px #dcdcf0;
 }
 @media only screen and (orientation: landscape) {
-  /* line 126, ../sass/client.sass */
+  /* line 136, ../sass/client.sass */
   #wrapper #btns .btn {
     width: 96%;
   }
 }
-/* line 141, ../sass/client.sass */
+/* line 151, ../sass/client.sass */
 #wrapper #btns .btn.selected {
   background: rgba(0, 0, 0, 0.1);
   color: rgba(255, 255, 255, 0.5);
@@ -257,8 +271,9 @@ html, body {
   box-shadow: none;
   border: none;
 }
-/* line 148, ../sass/client.sass */
+/* line 158, ../sass/client.sass */
 #wrapper #btn-fb {
+  text-align: center;
   border-color: #29447e;
   border-bottom-color: #1a356e;
   color: white;
@@ -268,28 +283,10 @@ html, body {
   background-image: linear-gradient(#637bad, #5872a7);
   background-image--webkit-box-shadow: inset 0 1px 0 #879ac0;
   box-shadow: inset 0 1px 0 #879ac0;
-  width: 90%;
+  width: 100%;
   height: 36px;
   line-height: 36px;
   padding: 0 0 0 10px;
   box-sizing: border-box;
   margin: 10px auto;
-}
-/* line 164, ../sass/client.sass */
-#wrapper #btn-fb::before {
-  display: inline-block;
-  box-sizing: border-box;
-  content: "f";
-  font-size: 1.6rem;
-  text-align: left;
-  padding-right: 10px;
-  margin-right: 10px;
-  height: 35px;
-  width: 25px;
-  font-weight: bold;
-  border-right: solid 1px rgba(0, 0, 0, 0.3);
-}
-/* line 176, ../sass/client.sass */
-#wrapper #btn-fb:active {
-  background-color: #5872a7;
 }
