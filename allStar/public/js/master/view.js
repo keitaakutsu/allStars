@@ -121,7 +121,7 @@ define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 
 			}
 
-			var time = 3;
+			var time = 15;
 			var timer = tag('#timer').text(time);
 			var timerId = setInterval(function() {
 				if (time <= 0) {
