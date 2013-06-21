@@ -11,7 +11,7 @@ require.config({
 
 define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	var socket = io.connect(location.origin);
-	var id = $.storage('_AS_ID');
+	var id = $.storage('_ASD_ID');
 
 	// check registered
 	if (id) {
@@ -29,7 +29,7 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 		view.resistered();
 
 		id = user.id;
-		$.storage('_AS_ID', user.id);
+		$.storage('_ASD_ID', user.id);
 	});
 
 	socket.on('entry:start', function (data) {

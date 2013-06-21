@@ -1,6 +1,6 @@
 var _ = require('lodash');
-//var question = require('./question').data;
-var question = require('./test').data;
+var question = require('./question').data;
+//var question = require('./test').data;
 
 // manage users
 var userList = [];
