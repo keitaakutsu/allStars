@@ -61,8 +61,8 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 			socket.emit('next', {token: token});
 		});
 	});
-	socket.on('q:timeup', function (data) {
-		console.log('q:timeup',data);
+	socket.on('q:timeup', function () {
+		console.log('q:timeup');
 		view.Quiz('timeup');
 	});
 	socket.on('q:check', function (data) {

@@ -31,12 +31,17 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 	var quizShow = function (state, data) {
 		resetView();
 		var name = (data.id)? '第' + data.id + '問': '練習問題';
-		var content = tag('.box')
+		var content = tag('.quiz-show.box')
 						.tag('h2.text-center').text(name).gat()
-						.tag('h1.question.text-center').css(center).text(data.question).gat()
+						.tag('h3.question').css(center).text(data.question).gat()
+		content.css({
+			position: 'relative',
+			top: '50%',
+			marginTop: -content.height()/2
+		});
 
-		main.append(content);
-		container.append(main);
+		modal.append(content);
+		container.append(modal);
 	};
 
 	var quiz = function (state, data, call) {
@@ -66,19 +71,35 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 			} else if (type === 'image') {
 
-				var list = data.anserList;
+				var list = data.answerList;
 				var question = data.question;
-
-				var title = tag('hs.span10').text(name + ': ' + question);
+				var title = tag('h2.title').text(name + ': ' + question);
 				header.append(title);
-				var content = tag('#quiz.box')
-								.tag('.box.top')
-									.tag('.answer-box').data({id: 'a' + list[0].id}).text(list[0].id + '. ' + list[0].content).gat()
-									.tag('.answer-box').data({id: 'a' + list[1].id}).text(list[1].id + '. ' + list[1].content).gat()
+
+				var content = tag('#quiz')
+								.tag('.top-container')
+									.tag('.answer-box').data({id: 'a' + list[0].id})
+										.tag('.in')
+											.tag('img').attr({src: list[0].content}).gat()
+										.gat()
+									.gat()
+									.tag('.answer-box').data({id: 'a' + list[1].id})
+										.tag('.in')
+											.tag('img').attr({src: list[1].content}).gat()
+										.gat()
+									.gat()
 								.gat()
-								.tag('.box.bottom')
-									.tag('.answer-box').data({id: 'a' + list[2].id}).text(list[2].id + '. ' + list[2].content).gat()
-									.tag('.answer-box').data({id: 'a' + list[3].id}).text(list[3].id + '. ' + list[3].content).gat()
+								.tag('.bottom-container')
+									.tag('.answer-box').data({id: 'a' + list[2].id})
+										.tag('.in')
+											.tag('img').attr({src: list[2].content}).gat()
+										.gat()
+									.gat()
+									.tag('.answer-box').data({id: 'a' + list[3].id})
+										.tag('.in')
+											.tag('img').attr({src: list[3].content}).gat()
+										.gat()
+									.gat()
 								.gat()
 
 				main.append(content);
@@ -90,7 +111,7 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 			var timerId = setInterval(function() {
 				if (time <= 0) {
 					clearInterval(timerId);
-					//call();
+					call();
 					return;
 				}
 				time--;
@@ -104,7 +125,7 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 
 		// time up
 		} else if (state === 'timeup') {
-			//toggle color
+			$('#timer').cls('timeup');
 		// answer check
 		} else if (state === 'check') {
 
@@ -116,17 +137,18 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 		// show answer
 		} else if (state === 'answer') {
 			var answer = data.answer || 1;
-			$('#a'+answer).cls('answer')
+			$('#a'+answer).cls('answer');
 		}
 	};
 
 	var ranking = function (state, data) {
 		resetView();
 		var content = tag('#ranking');
-
 		data = data || {};
-		data.ranking || [];
-		var ranking = data.ranking.length === 0 ? [{
+		data.ranking = data.ranking || [];
+
+		var ranking = data.ranking.length === 0 ?
+		[{
 			rank: 1,
 			name: 'test',
 			time: '11.1'
@@ -142,85 +164,99 @@ define(['jquery', 'chikuwa', 'lodash'], function (_$, $, _) {
 			time: '11.1'
 		},
 		{
-			rank: 2,
+			rank: 4,
 			name: 'test2',
 			time: '11.1'
 		},
 		{
-			rank: 3,
+			rank: 5,
 			name: 'test3',
 			time: '11.1'
 		},
 		{
-			rank: 2,
+			rank: 6,
 			name: 'test2',
 			time: '11.1'
 		},
 		{
-			rank: 3,
+			rank: 7,
 			name: 'test3',
 			time: '11.1'
 		},
 		{
-			rank: 2,
+			rank: 8,
 			name: 'test2',
 			time: '11.1'
 		},
 		{
-			rank: 3,
+			rank: 9,
 			name: 'test3',
 			time: '11.1'
 		},
 		{
-			rank: 2,
+			rank: 10,
 			name: 'test2',
 			time: '11.1'
 		},
 		{
-			rank: 3,
+			rank: 11,
 			name: 'test3',
 			time: '11.1'
 		},
 		{
-			rank: 2,
+			rank: 12,
 			name: 'test2',
 			time: '11.1'
 		},
 		{
-			rank: 3,
+			rank: 13,
 			name: 'test3',
 			time: '11.1'
 		}
-		] : data.ranking;
+		]
+		: data.ranking;
 
-		var interval = 5000 / ranking.length;
-		var cnt = 0;
+		if (state === 'q') {
+			var interval = 5000 / ranking.length;
+			var cnt = ranking.length;
 
-		setTimeout(function() {
-			if (ranking[cnt ++]) {
-				var user = ranking[cnt];
-				content
-					.prepend(
-						tag('.ranking-box')
-							.tag('.ranking-rank').text(user.rank).gat()
-							.tag('.ranking-user').text(user.name).gat()
-							.tag('.ranking-time').text(user.time).gat()
-					);
-				setTimeout(arguments.callee, interval);
-			} else {
+			setTimeout(function() {
+				cnt-- ;
+				if (cnt < 0) {
+				} else {
+					var user = ranking[cnt];
+					var rank = user.rank <= 5 ? 'large' : '';
+					content
+						.prepend(
+							tag('.ranking-box').cls(rank)
+								.tag('.ranking-rank').text(user.rank).gat()
+								.tag('.ranking-user').text(user.name).gat()
+								.tag('.ranking-time').text(user.time).gat()
+						);
+					setTimeout(arguments.callee, interval);
+				}
+			}, interval);
+		} else if (state === 'all') {
+			var interval = 5000 / ranking.length;
+			var cnt = ranking.length;
 
-			}
-		}, interval);
-
-		// _.each(data.ranking, function (user) {
-		// 	setInterval()
-		// 	content
-		// 		.tag('.ranking-box')
-		// 			.tag('.ranking-rank').text(user.rank).gat()
-		// 			.tag('.ranking-user').text(user.name).gat()
-		// 			.tag('.ranking-time').text(user.time).gat()
-		// 		.gat();
-		// });
+			setTimeout(function() {
+				cnt-- ;
+				if (cnt < 0) {
+				} else {
+					var user = ranking[cnt];
+					var rank = user.rank <= 5 ? 'large' : '';
+					content
+						.prepend(
+							tag('.ranking-box').cls(rank)
+								.tag('.ranking-rank').text(user.rank).gat()
+								.tag('.ranking-user').text(user.name).gat()
+								.tag('.ranking-time').text(user.time).gat()
+						);
+					setTimeout(arguments.callee, interval);
+				}
+			}, interval);
+		}
 
 		modal.append(content);
 		container.append(modal);
