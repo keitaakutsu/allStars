@@ -15,12 +15,12 @@ define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
 
 
 	// need master recognition
-	//var input = prompt('need password');
+	var input = prompt('need password');
 	var token = null;
 	var lock = false;
-	socket.emit('getMasterToken', null);
+	socket.emit('getMasterToken', input);
 	socket.on('setMasterToken', function (_token) {
-		//if (!_token) location.href = 'http://yahoo.co.jp';
+		if (!_token) location.href = 'http://charlieee.com:3000/client';
 		token = _token;
 		socket.emit('getState');
 	});
