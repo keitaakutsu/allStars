@@ -122,7 +122,7 @@ exports.data = [
 	},
 	{
 		id: 11,
-		type: 'image',
+		type: 'text',
 		question: '昨日のうっちーの日報の一句は？',
 		answerList: [
 			{id: 1, content: '背後から、聞こえる英語で プチ旅行'},
