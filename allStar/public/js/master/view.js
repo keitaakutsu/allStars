@@ -37,7 +37,8 @@ define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 
 	var quizShow = function (state, data) {
 		resetView();
-		var name = (data.id)? '第' + data.id + '問': '練習問題';
+		var quizId = data.id === 7 ? '?' : data.id ;
+		var name = quizId ? '第' + quizId + '問': '練習問題';
 		var content = tag('.quiz-show.box')
 						.tag('h2.text-center').text(name).gat()
 						.tag('h3.question').css(center).text(data.question).gat()
@@ -58,7 +59,8 @@ define(['jquery', 'chikuwa', 'lodash', 'sounds'], function (_$, $, _, sounds) {
 		// quiz start
 		if (state === 'start') {
 			resetView();
-			var name = data.id ? '第' + data.id + '問': '練習問題';
+			var quizId = data.id === 7 ? '?' : data.id ;
+			var name = quizId ? '第' + quizId + '問': '練習問題';
 
 			if (type === 'text') {
 
