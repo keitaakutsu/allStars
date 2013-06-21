@@ -124,9 +124,10 @@ html, body, #wrapper {
   -webkit-box-pack: center;
   height: 100%;
   width: 100%;
+  font-weight: bold;
 }
 
-/* line 39, ../sass/main.sass */
+/* line 40, ../sass/main.sass */
 #wrapper {
   background: url('/img/background.jpg?1371735582') repeat left top;
   background-size: cover;
@@ -134,7 +135,7 @@ html, body, #wrapper {
   overflow: hidden;
 }
 
-/* line 45, ../sass/main.sass */
+/* line 46, ../sass/main.sass */
 #container {
   position: absolute;
   top: 5%;
@@ -143,7 +144,7 @@ html, body, #wrapper {
   height: 90%;
 }
 
-/* line 51, ../sass/main.sass */
+/* line 52, ../sass/main.sass */
 #header {
   border: solid 2px white;
   box-sizing: border-box;
@@ -151,47 +152,47 @@ html, body, #wrapper {
   color: white;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 71, 153, 0.5)), to(rgba(0, 61, 143, 0.5)));
   position: relative;
-  min-height: 120px;
-  line-height: 120px;
+  min-height: 80px;
+  line-height: 80px;
   width: 100%;
   -webkit-border-radius: 4px;
   margin: 0 0 10px 0;
   padding: 0 0 0 10px;
 }
-/* line 64, ../sass/main.sass */
+/* line 65, ../sass/main.sass */
 #header .title {
-  height: 120px;
-  line-height: 120px;
+  height: 80px;
+  line-height: 80px;
 }
 
-/* line 68, ../sass/main.sass */
+/* line 69, ../sass/main.sass */
 #main {
   width: 100%;
   min-height: 70%;
 }
-/* line 71, ../sass/main.sass */
+/* line 72, ../sass/main.sass */
 #main #quiz {
   position: relative;
   height: 70%;
 }
-/* line 74, ../sass/main.sass */
+/* line 75, ../sass/main.sass */
 #main .answer-list {
   width: 100%;
   height: 70%;
 }
-/* line 77, ../sass/main.sass */
+/* line 78, ../sass/main.sass */
 #main .box {
   width: 100%;
 }
-/* line 80, ../sass/main.sass */
+/* line 81, ../sass/main.sass */
 #main .top-container {
   display: -webkit-box;
 }
-/* line 83, ../sass/main.sass */
+/* line 84, ../sass/main.sass */
 #main .bottom-container {
   display: -webkit-box;
 }
-/* line 86, ../sass/main.sass */
+/* line 87, ../sass/main.sass */
 #main .answer-box {
   position: relative;
   background: rgba(255, 255, 255, 0.6);
@@ -205,7 +206,7 @@ html, body, #wrapper {
   border-radius: 4px;
   padding: 10px;
 }
-/* line 98, ../sass/main.sass */
+/* line 99, ../sass/main.sass */
 #main .answer-box .answer-count {
   box-sizing: border-box;
   width: 60px;
@@ -221,12 +222,12 @@ html, body, #wrapper {
   color: white;
   text-align: center;
 }
-/* line 112, ../sass/main.sass */
+/* line 113, ../sass/main.sass */
 #main .answer-box.answer {
   background: #be8127;
   color: white;
 }
-/* line 115, ../sass/main.sass */
+/* line 116, ../sass/main.sass */
 #main .answer-box .number {
   position: absolute;
   left: 0px;
@@ -241,13 +242,13 @@ html, body, #wrapper {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 71, 153, 0.5)), to(rgba(0, 61, 143, 0.5)));
   border: solid 1px white;
 }
-/* line 129, ../sass/main.sass */
+/* line 130, ../sass/main.sass */
 #main .answer-box .in {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-/* line 133, ../sass/main.sass */
+/* line 134, ../sass/main.sass */
 #main .answer-box .in img {
   -webkit-animation-name: scale-small;
   -webkit-animation-duration: 15000ms;
@@ -256,7 +257,7 @@ html, body, #wrapper {
   -webkit-animation-play-state: running;
   -webkit-animation-delay: 0s;
 }
-/* line 144, ../sass/main.sass */
+/* line 145, ../sass/main.sass */
 #main .answer-line {
   -webkit-box-sizing: border-box;
   height: 100px;
@@ -270,13 +271,13 @@ html, body, #wrapper {
   font-size: 2em;
   position: relative;
 }
-/* line 156, ../sass/main.sass */
+/* line 157, ../sass/main.sass */
 #main .answer-line.answer {
   background: #be7827;
   border: solid 1px rgba(255, 255, 255, 0.5);
   color: white;
 }
-/* line 160, ../sass/main.sass */
+/* line 161, ../sass/main.sass */
 #main .answer-line .answer-count {
   box-sizing: border-box;
   width: 90px;
@@ -292,34 +293,34 @@ html, body, #wrapper {
   text-align: center;
 }
 
-/* line 174, ../sass/main.sass */
+/* line 175, ../sass/main.sass */
 #a1 {
   background: transparent;
 }
 
-/* line 176, ../sass/main.sass */
+/* line 177, ../sass/main.sass */
 #a2 {
   background: transparent;
 }
 
-/* line 178, ../sass/main.sass */
+/* line 179, ../sass/main.sass */
 #a3 {
   background: transparent;
 }
 
-/* line 180, ../sass/main.sass */
+/* line 181, ../sass/main.sass */
 #a4 {
   background: transparent;
 }
 
-/* line 183, ../sass/main.sass */
+/* line 184, ../sass/main.sass */
 #modal {
   position: relative;
   width: 100%;
   height: 100%;
   z-index: 1%;
 }
-/* line 189, ../sass/main.sass */
+/* line 190, ../sass/main.sass */
 #modal #ranking .ranking-box {
   box-sizing: border-box;
   display: -webkit-box;
@@ -333,16 +334,16 @@ html, body, #wrapper {
   margin: 0 0 10px 0;
   font-size: white;
 }
-/* line 201, ../sass/main.sass */
+/* line 202, ../sass/main.sass */
 #modal #ranking .ranking-box.large {
   height: 90px;
   line-height: 90px;
 }
-/* line 204, ../sass/main.sass */
+/* line 205, ../sass/main.sass */
 #modal #ranking .ranking-box.large .ranking-user {
   font-size: 1.2em;
 }
-/* line 206, ../sass/main.sass */
+/* line 207, ../sass/main.sass */
 #modal #ranking .ranking-box.large .ranking-rank {
   font-size: 60px;
   width: 86px;
@@ -355,12 +356,12 @@ html, body, #wrapper {
   -webkit-animation-play-state: running;
   -webkit-animation-delay: 0s;
 }
-/* line 218, ../sass/main.sass */
+/* line 219, ../sass/main.sass */
 #modal #ranking .ranking-box .ranking-user {
   -webkit-box-flex: 1;
   width: 1000px;
 }
-/* line 221, ../sass/main.sass */
+/* line 222, ../sass/main.sass */
 #modal #ranking .ranking-box .ranking-rank {
   font-size: 48px;
   text-align: center;
@@ -374,35 +375,35 @@ html, body, #wrapper {
   color: white;
   text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
 }
-/* line 233, ../sass/main.sass */
+/* line 234, ../sass/main.sass */
 #modal #ranking .ranking-box .ranking-time {
   padding-right: 10px;
 }
-/* line 235, ../sass/main.sass */
+/* line 236, ../sass/main.sass */
 #modal h2 {
   font-size: 2em;
   margin-bottom: 20px;
 }
-/* line 238, ../sass/main.sass */
+/* line 239, ../sass/main.sass */
 #modal h3 {
   font-size: 3em;
 }
 
-/* line 242, ../sass/main.sass */
+/* line 243, ../sass/main.sass */
 #timer {
   position: absolute;
   display: -webkit-box;
   font-size: 40px;
   right: 10px;
   top: 10px;
-  min-height: 100px;
-  min-width: 100px;
+  min-height: 80px;
+  min-width: 80px;
   border-radius: 50%;
   -webkit-box-pack: center;
   -webkit-box-align: center;
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 254, ../sass/main.sass */
+/* line 255, ../sass/main.sass */
 #timer.timeup {
   -webkit-animation-name: turn2;
   -webkit-animation-duration: 100ms;
@@ -414,7 +415,7 @@ html, body, #wrapper {
   color: #cccccc;
 }
 
-/* line 264, ../sass/main.sass */
+/* line 265, ../sass/main.sass */
 .box {
   width: 100%;
   border: solid 2px white;
