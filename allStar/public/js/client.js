@@ -12,17 +12,17 @@ require.config({
 define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 	var socket = io.connect(location.origin);
 	var id = $.storage('_AS_ID');
-	localStorage.clear();
 
 	// check registered
 	if (id) {
-		socket.emit('register', {id: id});
+		//socket.emit('register', {id: id});
 	} else {
 		var top = view.top();
-		top.on('submit', function(name) {
-			socket.emit('register', {name: name});
-		});
+		// top.on('submit', function(name) {
+		// 	socket.emit('register', {name: name});
+		// });
 	}
+	socket.emit('register', {name: 'testman'});
 
 	socket.on('registered', function (user) {
 		console.log('registered');
