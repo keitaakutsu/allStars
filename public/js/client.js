@@ -10,19 +10,20 @@ require.config({
 });
 
 define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
-	var socket = io.connect(location.origin);
-	var id = $.storage('_ASD_ID');
+
+	var socket = io.connect(location.origin),
+		id = $.storage('_ASD_ID'),
+		name = $.storage('name');
 
 	// check registered
 	if (id) {
-		socket.emit('register', {id: id});
+		socket.emit('register', {id: id, name: name});
 	} else {
 		var top = view.top();
 		top.on('submit', function(name) {
 			socket.emit('register', {name: name});
 		});
 	}
-	//socket.emit('register', {name: 'testman'});
 
 	socket.on('registered', function (user) {
 		user = user || {};
@@ -74,10 +75,4 @@ define(['lodash', 'chikuwa', 'view'], function (_, $, view) {
 		view.all('ending', data);
 	});
 
-	// answer
-	// data = {
-	//	 id: id,
-	//	 answer: answer
-	// }
-	//socket.emit('q:answer', data);
 });

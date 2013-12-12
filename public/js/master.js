@@ -6,103 +6,163 @@ require({
 		sounds: 'js/master/sounds',
 		view: 'js/master/view',
 		jquery: 'js/lib/jq',
+
+		master: 'js/master'
 	},
 });
 
 
 define(['lodash', 'chikuwa', 'sounds', 'view'], function (_, $, sounds, view) {
-	var socket = io.connect(location.origin);
+
+	'use strict';
+
+	var socket = io.connect(location.origin),
+		input = null,//window.prompt('required password'),
+		token = null;
 
 
-	// need master recognition
-	var input = prompt('need password');
-	var token = null;
-	var lock = false;
-	socket.emit('getMasterToken', input);
-	socket.on('setMasterToken', function (_token) {
-		if (!_token) location.href = 'http://charlieee.com:3000/client';
-		token = _token;
-		socket.emit('getState');
-	});
-
-	// next Event
+	// next Event triger
 	document.onkeydown = function (e) {
-		if (e.keyCode == 13 && !lock) {
+		if (e.keyCode === 13) {
 			socket.emit('next', {token: token});
 		}
 	};
 
-	socket.on('entry:start', function (data) {
-		console.log('entry:start',data);
+
+	/**
+	 * set socket event
+	 * mainly sound and view handling
+	 */
+	socket
+
+	.on('setMasterToken', function (_token) {
+		if (!_token) {
+			location.href = location.host;
+			return;
+		}
+		token = _token;
+		socket.emit('get:state');
+	})
+
+	// added new user
+	.on('register:member', function (data) {
+		data = data || {};
+		sounds.login.load();
+		sounds.login.play();
+	})
+
+	/**
+	 * entry start
+	 */
+	.on('entry:start', function (data) {
+		console.log('entry:start', data);
 		sounds.entryBGM.loop = true;
 		sounds.entryBGM.play();
 		view.entry('start');
-	});
+	})
 
-	socket.on('entry:exit', function (data) {
+	/**
+	 * entry end
+	 */
+	.on('entry:exit', function (data) {
 		console.log('entry:exit', data);
 		sounds.entryBGM.pause();
 		sounds.period.play();
 		view.entry('exit', data);
-	});
+	})
 
-	socket.on('q:show', function (data) {
+	/**
+	 * show question
+	 */
+	.on('q:show', function (data) {
 		console.log('q:show', data);
 		sounds.start.load();
 		sounds.start.play();
-		view.QuizShow('show', data);
-	});
-	socket.on('q:start', function (data) {
+		view.showQuestion('show', data);
+	})
+
+	/**
+	 * start question
+	 */
+	.on('q:start', function (data) {
 		console.log('q:start',data);
 		sounds.thinking.load();
 		sounds.thinking.play();
 		console.log(socket);
-		view.Quiz('start', data, function () {
+		view.question('start', data, function () {
 			socket.emit('next', {token: token});
 		});
-	});
-	socket.on('q:timeup', function () {
+	})
+
+	/**
+	 * timeup question
+	 */
+	.on('q:timeup', function () {
 		console.log('q:timeup');
-		view.Quiz('timeup');
-	});
-	socket.on('q:check', function (data) {
+		view.question('timeup');
+	})
+
+	/**
+	 * answer check
+	 */
+	.on('q:check', function (data) {
 		console.log('q:check',data);
 		sounds.check.load();
 		sounds.check.play();
-		view.Quiz('check', data);
-	});
-	socket.on('q:answer', function (data) {
+		view.question('check', data);
+	})
+
+	/**
+	 * show answer
+	 */
+	.on('q:answer', function (data) {
 		console.log('q:answer',data);
 		sounds.answer.load();
 		sounds.answer.play();
-		view.Quiz('answer', data);
-	});
-	socket.on('q:ranking', function (data) {
+		view.question('answer', data);
+	})
+
+	/**
+	 * show ranking
+	 */
+	.on('q:ranking', function (data) {
 		console.log('q:ranking',data);
 		sounds.result.load();
 		sounds.result.play();
-		view.Ranking('q', data);
-	});
-	socket.on('all:end', function() {
-		view.End();
-	});
-	socket.on('all:ranking', function (data) {
+		view.ranking('q', data);
+	})
+
+	/**
+	 * all flow is the end
+	 */
+	.on('all:end', function() {
+		view.showTotalRanking();
+	})
+
+	/**
+	 * show total ranking
+	 */
+	.on('all:ranking', function (data) {
 		console.log('all:ranking',data);
 		sounds.result.load();
 		sounds.result.play();
-		view.Ranking('all' ,data);
-	});
-	socket.on('all:ending', function (data) {
+		view.ranking('all' ,data);
+	})
+
+	/**
+	 * ending
+	 */
+	.on('all:ending', function (data) {
 		console.log('all:ending',data);
-		view.Ending(data);
+		view.end(data);
 	});
 
-	// add new user
-	socket.on('register:member', function (data) {
-		data = data || {};
-		view.updateMember(data.sum || 0);
-		sounds.login.load();
-		sounds.login.play();
-	});
+
+
+
+	/**
+	 * get
+	 */
+	socket.emit('getMasterToken', input);
 
 });

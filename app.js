@@ -1,11 +1,11 @@
 /**
  * express server setting
  **/
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , io = require('socket.io')
-  , routes = require('./routes');
+var express = require('express'),
+	http = require('http'),
+	path = require('path'),
+	io = require('socket.io'),
+	routes = require('./routes');
 
 var app = express();
 
@@ -21,81 +21,111 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+if ('development' === app.get('env')) {
+	app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/client', routes.client);
+app.get('/', routes.client);
+app.get('/master', routes.index);
 
 var server = http.createServer(app);
 server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+	console.log('Express server listening on port ' + app.get('port'));
 });
 
 
-/* *
+/**
  * application socket io
- * */
+ */
+var AllStar = require('./src/allStar'),
+	state = AllStar.state.init(),
+	socket = io.listen(server),
+	token = 'kgsihpthjsdfiwojwpea:ofjdsj',
+	masterKey = '*';
 
-var AllStar = require('./src/allStar');
-var state = AllStar.state.init();
-var socket = io.listen(server);
-var token = 'kgsihpthjsdfiwojwpea:ofjdsj';
 // set Bug
 socket.set('log level', 1);
 socket.on('connection', function (client) {
-	var id = client.id;
-	client.on('getState', function () {
+
+	'use strict';
+
+	/**
+	 * clientId
+	 */
+	var clientId = client.id;
+
+	/**
+	 * get flow state
+	 */
+	client
+	.on('get:state', function () {
+		var state, data;
+
 		state = AllStar.state.get();
-		var data = AllStar.getData(state);
+		data = AllStar.getData(state);
+
 		client.emit(state, data);
-	});
-	client.on('next', function (data) {
-		//if (data.token !== token) return;
+	})
+
+	/**
+	 * receive from master
+	 * proceed next flow
+	 */
+	.on('next', function (data) {
 		state = AllStar.state.next();
-		console.log(state);
-		var data = AllStar.getData(state);
-		var _state = state.split(':');
+
+		var data = AllStar.getData(state),
+			_state = state.split(':');
+
+		// question count start
 		if (_state[1] === 'start') {
 			AllStar.timer.start();
 		}
 
-		state = (_state[2])? _state[0]+':'+_state[1]: state;
-		socket.sockets.emit(state, data);
-	});
+		state = (_state[2])? _state[0]+':'+_state[1] : state;
 
-	// check already registered
-	client.on('register', function (data) {
-		if (!data) return;
-		var user = AllStar.register(id, data);
+		// broadcast all connected
+		socket.sockets.emit(state, data);
+	})
+
+	/**
+	 * register
+	 */
+	.on('register', function (data) {
+		if (!data) {
+			return;
+		}
+		var user = AllStar.register(clientId, data);
 		client.emit('registered', user);
 		socket.sockets.emit('register:member', {sum: AllStar.getRegistered()});
-	});
+	})
 
+	/**
+	 * getMasterToken with simple word check
+	 */
+	.on('getMasterToken', function (key) {
+		// var _token = (key === masterKey) ? token : null;
+		client.emit('setMasterToken', 'aa');
+	})
 
-	client.on('getMasterToken', function (password) {
-		//if (!password) return;
-		var t = (password === 'unkodesu')? token: null;
-		client.emit('setMasterToken', t);
-	});
+	/**
+	 * answer from client
+	 */
+	.on('q:answer', function (data) {
+		if (AllStar.timer.state === 'stop') {
+			return;
+		}
 
-	// answer
-	client.on('q:answer', function (data) {
-		if (AllStar.timer.state === 'stop') return;
-		var time = AllStar.timer.get();
-		var id = data.id;
-		var ans = data.answer;
 		AllStar.answer({
-			id: id,
-			answer: ans,
-			time: time
+			id: data.id,
+			answer: data.answer,
+			time: AllStar.timer.get()
 		});
-	});
 
+	})
 
 	// disconected
-	client.on('disconnect', function () {
-
+	.on('disconnect', function () {
+		// noop
 	});
 });
